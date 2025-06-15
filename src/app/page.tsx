@@ -1,15 +1,37 @@
-import Image from 'next/image';
+'use client';
 
-export default function Home() {
+import SearchBar from '@/components/home/search-bar';
+import PokemonList from '@/components/pokemon/pokemon-list';
+import { usePokemonDetailsList, usePokemonList } from '@/hooks/use-pokemon';
+import { useQueryParams } from '@/hooks/use-query-params';
+import { QueryParamsSearchPokemonSchema } from '@/schemas/search';
+
+const Page = () => {
+  const { queryParams } = useQueryParams(QueryParamsSearchPokemonSchema);
+
+  const { data: pokemonList, isLoading: isLoadingList } = usePokemonList(
+    20,
+    0,
+    queryParams.name
+  );
+  const pokemonNames =
+    pokemonList?.results.map((pokemon) => pokemon.name) ?? [];
+
+  console.log(pokemonList);
+
+  const { data: pokemonDetails, isLoading: isLoadingDetails } =
+    usePokemonDetailsList(pokemonNames);
+
   return (
-    <div className="min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <Image src="/pokenext-logo.png" alt="Pokemon" width={100} height={100} />
+    <div>
+      <SearchBar />
 
-      <div className="bg-white">
-        <h1 className="text-primary">Title</h1>
-        <p className="text-secondary">Subtitle</p>
-        {/* <button className="bg-secondary text-white">Click me</button> */}
-      </div>
+      <PokemonList
+        pokemonDetails={pokemonDetails ?? []}
+        isLoading={isLoadingDetails || isLoadingList}
+      />
     </div>
   );
-}
+};
+
+export default Page;

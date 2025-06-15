@@ -1,34 +1,28 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
-
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-});
+import MainNavbar from '@/components/shared/main-navbar';
+import { QueryProvider } from '@/providers/query-provider';
 
 export const metadata: Metadata = {
   title: 'PokeNext',
   description: 'PokeNext: The primary pokedex app',
 };
-
-export default function RootLayout({
+const RootLayout = ({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
-  return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
-    </html>
-  );
-}
+}>) => (
+  <html lang="en">
+    <body className="antialiased">
+      <QueryProvider>
+        <div className="min-h-screen p-8 pb-20 gap-16 sm:p-20 max-w-[1440px] mx-auto flex flex-col">
+          <MainNavbar />
+
+          {children}
+        </div>
+      </QueryProvider>
+    </body>
+  </html>
+);
+
+export default RootLayout;
