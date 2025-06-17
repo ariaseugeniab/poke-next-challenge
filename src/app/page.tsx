@@ -55,7 +55,7 @@ const Page = () => {
   console.log('pokemonList', pokemonDetails);
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 pt-10">
       <SearchBar />
 
       <PokemonList

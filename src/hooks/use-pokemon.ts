@@ -1,4 +1,8 @@
-import { getPokemonDetails, getPokemonList } from '@/services/pokemon';
+import {
+  getPokemonDetails,
+  getPokemonEvolutions,
+  getPokemonList,
+} from '@/services/pokemon';
 import { useQuery } from '@tanstack/react-query';
 
 export function usePokemonList(limit = 20, offset = 0, name?: string) {
@@ -8,11 +12,19 @@ export function usePokemonList(limit = 20, offset = 0, name?: string) {
   });
 }
 
-export function usePokemonDetails(name: string) {
+export function usePokemonDetails(id: string) {
   return useQuery({
-    queryKey: ['pokemon-details', name],
-    queryFn: () => getPokemonDetails(name),
-    enabled: !!name,
+    queryKey: ['pokemon-details', id],
+    queryFn: () => getPokemonDetails(id),
+    enabled: !!id,
+  });
+}
+
+export function usePokemonEvolution(id: string) {
+  return useQuery({
+    queryKey: ['pokemon-evolution', id],
+    queryFn: () => getPokemonEvolutions(id),
+    enabled: !!id,
   });
 }
 

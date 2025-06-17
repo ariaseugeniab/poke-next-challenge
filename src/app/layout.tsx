@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import MainNavbar from '@/components/shared/main-navbar';
+import { UserContextProvider } from '@/context/user-context';
 import { QueryProvider } from '@/providers/query-provider';
 
 export const metadata: Metadata = {
@@ -15,11 +16,13 @@ const RootLayout = ({
   <html lang="en">
     <body className="antialiased">
       <QueryProvider>
-        <div className="min-h-screen p-8 pb-20 gap-16 sm:p-20 max-w-[1440px] mx-auto flex flex-col">
-          <MainNavbar />
+        <UserContextProvider>
+          <div className="min-h-screen p-8 pb-20 gap-16 sm:pt-[55px] max-w-[1440px] mx-auto flex flex-col">
+            <MainNavbar />
 
-          {children}
-        </div>
+            {children}
+          </div>
+        </UserContextProvider>
       </QueryProvider>
     </body>
   </html>
