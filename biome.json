@@ -24,7 +24,6 @@
     }
   },
   "files": {
-    "maxSize": 2048,
     "ignore": [".next/**", "node_modules/**"]
   }
 }

@@ -1,9 +1,5 @@
 @import "tailwindcss";
-
-html {
-  --scroll-behavior: smooth !important;
-  scroll-behavior: smooth !important;
-}
+@import "./fonts/fonts.css";
 
 @theme {
   --color-primary: #e98c49;
@@ -12,4 +8,57 @@ html {
   --color-grey: #ababab;
   --color-light-grey: #d7d7d7;
   --color-white: #f6f6f6;
+  --font-manrope: "Manrope", sans-serif;
+  --color-water: #5090d6;
+  --color-dragon: #0b6dc3;
+  --color-electric: #f8d030;
+  --color-fairy: #ee99ac;
+  --color-ghost: #705898;
+  --color-fire: #f08030;
+  --color-ice: #98d8d8;
+  --color-grass: #78c850;
+  --color-bug: #a8b820;
+  --color-fighting: #ce416b;
+  --color-normal: #919aa2;
+  --color-dark: #5a5465;
+  --color-steel: #b8b8d0;
+  --color-rock: #c5b78c;
+  --color-psychic: #fa7179;
+  --color-ground: #d97845;
+  --color-poison: #b567ce;
+  --color-flying: #a890f0;
+}
+
+:root {
+  --background: #d7d7d7;
+  --foreground: #020202;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-manrope: "Manrope", sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #d7d7d7;
+    --foreground: #020202;
+  }
+}
+
+html {
+  --scroll-behavior: smooth !important;
+  scroll-behavior: smooth !important;
+  font-family: var(--font-manrope);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  font-family: var(--font-manrope);
 }
