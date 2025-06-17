@@ -18,13 +18,13 @@
   --color-ice: #98d8d8;
   --color-grass: #78c850;
   --color-bug: #a8b820;
-  --color-fighter: #ce416b;
+  --color-fighting: #ce416b;
   --color-normal: #919aa2;
-  --color-nocturne: #5a5465;
-  --color-metal: #b8b8d0;
-  --color-stone: #c5b78c;
+  --color-dark: #5a5465;
+  --color-steel: #b8b8d0;
+  --color-rock: #c5b78c;
   --color-psychic: #fa7179;
-  --color-earth: #d97845;
+  --color-ground: #d97845;
   --color-poison: #b567ce;
   --color-flying: #a890f0;
 }
