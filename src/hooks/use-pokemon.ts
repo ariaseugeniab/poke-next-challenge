@@ -1,4 +1,6 @@
 import {
+  getDamageRelationsDamages,
+  getPokemonCharacteristics,
   getPokemonDetails,
   getPokemonEvolutions,
   getPokemonList,
@@ -16,6 +18,14 @@ export function usePokemonDetails(id: string) {
   return useQuery({
     queryKey: ['pokemon-details', id],
     queryFn: () => getPokemonDetails(id),
+    enabled: !!id,
+  });
+}
+
+export function usePokemonCharacteristics(id: string) {
+  return useQuery({
+    queryKey: ['pokemon-characteristics', id],
+    queryFn: () => getPokemonCharacteristics(id),
     enabled: !!id,
   });
 }
@@ -38,5 +48,13 @@ export function usePokemonDetailsList(names: string[]) {
       return details;
     },
     enabled: names.length > 0,
+  });
+}
+
+export function useDamageRelationsDamages(id: string) {
+  return useQuery({
+    queryKey: ['damage-relations-damages', id],
+    queryFn: () => getDamageRelationsDamages(id),
+    enabled: !!id,
   });
 }
