@@ -4,17 +4,23 @@ import PokemonCard from '@/components/pokemon/pokemon-card';
 import Subtitle from '@/components/shared/subtitle';
 import Title from '@/components/shared/title';
 import { useUserContext } from '@/context/user-context';
-import { usePokemonDetails } from '@/hooks/use-pokemon';
+import { usePokemonDetailsList } from '@/hooks/use-pokemon';
 import Image from 'next/image';
+import Loading from '../shared/loading';
 
 const FavoritesList = () => {
   const { favorites } = useUserContext();
 
-  const { data: pokemons } = usePokemonDetails(favorites[0]);
+  const { data: pokemonDetails, isLoading: isLoadingDetails } =
+    usePokemonDetailsList(favorites);
 
-  if (!favorites || !pokemons) {
+  if (isLoadingDetails) {
+    return <Loading />;
+  }
+
+  if (!favorites || !pokemonDetails) {
     return (
-      <div className="flex flex-col items-center gap-2 w-full">
+      <div className="flex flex-col items-center gap-2 w-full pt-10">
         <Image
           src="/utils/magikarp.png"
           alt="Magikarp"
@@ -33,11 +39,17 @@ const FavoritesList = () => {
   }
 
   return (
-    <div className="flex flex-col items-center gap-2 w-full">
+    <div className="flex flex-col items-center gap-2 w-full pt-10">
       <Title>Your Favorite Pokémon</Title>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        <PokemonCard key={pokemons.id} pokemon={pokemons} />
+      <Subtitle className="mb-5">
+        {pokemonDetails.length} Pokémon in your favorites
+      </Subtitle>
+
+      <div className="flex flex-wrap gap-4 items-center justify-center">
+        {pokemonDetails.map((pokemon) => (
+          <PokemonCard key={pokemon.id} pokemon={pokemon} />
+        ))}
       </div>
     </div>
   );

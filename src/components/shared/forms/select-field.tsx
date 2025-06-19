@@ -11,7 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/shared/forms/select';
-import { type ReactNode, useRef } from 'react';
+import type { ReactNode } from 'react';
 import type { Control, FieldValues, Path } from 'react-hook-form';
 
 const SelectField = <T extends FieldValues, K extends string>({
@@ -23,7 +23,6 @@ const SelectField = <T extends FieldValues, K extends string>({
   placeholder,
   control,
   onChange,
-  nullable = false,
   disabled,
 }: {
   control: Control<T>;
@@ -34,70 +33,35 @@ const SelectField = <T extends FieldValues, K extends string>({
   className?: string;
   placeholder?: string;
   onChange?: (value?: K) => void;
-  nullable?: boolean;
   disabled?: boolean;
 }) => {
-  const lastSelectedValue = useRef<string | undefined>(
-    control._defaultValues[name]
-  );
-  const preventReset = useRef(false);
-
   return (
     <FormField
       control={control}
       name={name}
-      render={({ field }) => {
-        const handleOpenChange = (open: boolean) => {
-          if (!open && field.value) {
-            if (
-              field.value === lastSelectedValue.current &&
-              !preventReset.current &&
-              nullable
-            ) {
-              field.onChange(undefined);
-              onChange?.(undefined);
-              return;
-            }
-          }
-          preventReset.current = false;
-        };
+      render={({ field }) => (
+        <FormItem className={className}>
+          {label && <FormLabel>{label}</FormLabel>}
 
-        const handleValueChange = (value?: string) => {
-          field.onChange(value === '' ? undefined : value);
-          onChange?.(value as K);
-          lastSelectedValue.current = value;
-          preventReset.current = true;
-        };
+          <FormControl>
+            <Select
+              onOpenChange={field.onChange}
+              onValueChange={onChange}
+              value={field.value ?? ''}
+            >
+              <SelectTrigger className={classNameTrigger} disabled={disabled}>
+                <SelectValue placeholder={placeholder} />
+              </SelectTrigger>
 
-        return (
-          <FormItem className={className}>
-            {label && <FormLabel>{label}</FormLabel>}
+              <SelectContent className="overflow-y-auto max-h-[300px]">
+                {children}
+              </SelectContent>
+            </Select>
+          </FormControl>
 
-            <FormControl>
-              <Select
-                onOpenChange={handleOpenChange}
-                onValueChange={handleValueChange}
-                value={field.value ?? ''}
-              >
-                <SelectTrigger className={classNameTrigger} disabled={disabled}>
-                  <SelectValue placeholder={placeholder} />
-                </SelectTrigger>
-
-                <SelectContent
-                  onPointerDownOutside={() => {
-                    preventReset.current = true;
-                  }}
-                  className="overflow-y-auto max-h-[300px]"
-                >
-                  {children}
-                </SelectContent>
-              </Select>
-            </FormControl>
-
-            <FormMessage />
-          </FormItem>
-        );
-      }}
+          <FormMessage />
+        </FormItem>
+      )}
     />
   );
 };

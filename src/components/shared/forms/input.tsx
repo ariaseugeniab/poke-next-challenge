@@ -1,3 +1,4 @@
+import { XIcon } from 'lucide-react';
 import {
   type Control,
   Controller,
@@ -13,6 +14,7 @@ interface InputProps<T extends FieldValues> {
   label?: string;
   placeholder?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onClear?: () => void;
 }
 
 const Input = <T extends FieldValues>({
@@ -21,14 +23,16 @@ const Input = <T extends FieldValues>({
   name,
   label,
   placeholder,
+  isClearable,
   onChange,
+  onClear,
   ...props
 }: InputProps<T>) => (
   <Controller
     control={control}
     name={name}
     render={({ field }) => (
-      <div className="input-group">
+      <div className="input-group relative flex items-center">
         {label && (
           <label htmlFor={name} className="form-label">
             {label}
@@ -55,6 +59,21 @@ const Input = <T extends FieldValues>({
           autoCapitalize="off"
           spellCheck="false"
         />
+
+        {isClearable && field.value && (
+          <div className="relative h-10">
+            <button
+              type="button"
+              onClick={() => {
+                field.onChange('');
+                onClear?.();
+              }}
+              className="absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer"
+            >
+              <XIcon className="w-4 h-4" />
+            </button>
+          </div>
+        )}
       </div>
     )}
   />

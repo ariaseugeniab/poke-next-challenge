@@ -5,6 +5,16 @@ import type {
   PokemonListResponse,
 } from '@/types/pokemon';
 
+// Type for the Pokemon API response structure
+type PokemonTypeResponse = {
+  pokemon: Array<{
+    pokemon: {
+      name: string;
+      url: string;
+    };
+  }>;
+};
+
 export async function getPokemonList(
   limit = 20,
   offset = 0,
@@ -41,6 +51,30 @@ export async function getPokemonList(
     throw new Error('Failed to fetch Pokemon list');
   }
   return response.json();
+}
+
+export async function getPokemonByType(
+  type: string
+): Promise<PokemonListResponse> {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/type/${type}`
+  );
+  if (!response.ok) {
+    throw new Error(`Failed to fetch Pokemon by type ${type}`);
+  }
+
+  const data: PokemonTypeResponse = await response.json();
+
+  // Transform the type API response to match PokemonListResponse format
+  return {
+    count: data.pokemon.length,
+    next: null,
+    previous: null,
+    results: data.pokemon.map((pokemon) => ({
+      name: pokemon.pokemon.name,
+      url: pokemon.pokemon.url,
+    })),
+  };
 }
 
 export async function getPokemonDetails(name: string): Promise<Pokemon> {

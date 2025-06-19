@@ -22,7 +22,7 @@ const FavoriteButton = ({ pokemonId, className }: FavoriteButtonProps) => {
       variant="ghost"
       size="icon"
       className={cn(
-        'absolute top-2 right-2 z-10 hover:cursor-pointer border border-white rounded-full bg-gray transition-all duration-300',
+        'absolute top-2 right-2 z-10 hover:cursor-pointer border-2 border-white rounded-full bg-gray transition-all duration-300',
         isFav && 'border-fighting',
         className
       )}
@@ -31,7 +31,7 @@ const FavoriteButton = ({ pokemonId, className }: FavoriteButtonProps) => {
       <Heart
         className={cn(
           'h-5 w-5 transition-all duration-300',
-          isFav ? 'fill-fighting text-fighting' : 'text-white'
+          isFav ? 'fill-fighting text-fighting' : 'fill-white text-white'
         )}
       />
     </Button>

@@ -10,7 +10,7 @@ interface PokemonCardProps {
 }
 
 const PokemonCard = ({ pokemon }: PokemonCardProps) => (
-  <div className="rounded-lg shadow-md hover:shadow-lg transition-shadow relative">
+  <div className="rounded-lg shadow-md hover:shadow-lg transition-shadow relative w-60">
     <div
       className={cn(
         `absolute inset-0 bg-${pokemon.types[0].type.name} opacity-50 rounded-lg`

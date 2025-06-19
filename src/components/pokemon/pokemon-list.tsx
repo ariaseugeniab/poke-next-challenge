@@ -1,5 +1,8 @@
 import type { Pokemon } from '@/types/pokemon';
-import { Loader2 } from 'lucide-react';
+import Image from 'next/image';
+import Loading from '../shared/loading';
+import Subtitle from '../shared/subtitle';
+import Title from '../shared/title';
 import PokemonCard from './pokemon-card';
 
 type PokemonListProps = {
@@ -10,14 +13,29 @@ type PokemonListProps = {
 const PokemonList = ({ pokemonDetails, isLoading }: PokemonListProps) => (
   <>
     {isLoading ? (
-      <div className="flex items-center justify-center h-[50vh]">
-        <Loader2 className="w-10 h-10 animate-spin" />
-      </div>
+      <Loading />
     ) : (
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {pokemonDetails?.map((pokemon) => (
-          <PokemonCard key={pokemon.id} pokemon={pokemon} />
-        ))}
+      <div>
+        {pokemonDetails.length > 0 ? (
+          <div className="flex flex-wrap gap-4 items-center justify-center">
+            {pokemonDetails.map((pokemon) => (
+              <PokemonCard key={pokemon.id} pokemon={pokemon} />
+            ))}
+          </div>
+        ) : (
+          <div className="flex flex-col items-center justify-center h-[50vh] w-full">
+            <Image
+              src="/utils/psyduck.png"
+              alt="No Pokémon found"
+              width={200}
+              height={100}
+            />
+
+            <Title>No Pokémon found :(</Title>
+
+            <Subtitle>Try searching for a different Pokémon name</Subtitle>
+          </div>
+        )}
       </div>
     )}
   </>

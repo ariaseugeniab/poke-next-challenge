@@ -1,26 +1,43 @@
+import type { QueryParamsSearchPokemonForm } from '@/schemas/search';
+import { useCallback } from 'react';
 import {
   Pagination,
   PaginationContent,
+  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-  PaginationEllipsis,
 } from './pagination';
 
 interface PagePaginatorProps {
   currentPage: number;
+  setCurrentPage: (page: number) => void;
   totalPages: number;
-  handlePageChange: (page: number) => void;
+  queryParams: QueryParamsSearchPokemonForm;
+  setQueryParams: (params: QueryParamsSearchPokemonForm) => void;
 }
 
 const PagePaginator = ({
   currentPage,
+  setCurrentPage,
   totalPages,
-  handlePageChange,
+  queryParams,
+  setQueryParams,
 }: PagePaginatorProps) => {
+  const handlePageChange = useCallback(
+    (page: number) => {
+      setCurrentPage(page);
+      setQueryParams({
+        ...queryParams,
+        page: page.toString(),
+      });
+    },
+    [queryParams, setQueryParams, setCurrentPage]
+  );
+
   const getVisiblePages = () => {
-    const windowSize = 5; 
+    const windowSize = 5;
     const pages: (number | 'ellipsis')[] = [1];
 
     const start = Math.max(2, currentPage - windowSize);
@@ -58,12 +75,14 @@ const PagePaginator = ({
               }
             }}
             aria-disabled={currentPage === 1}
-            className={currentPage === 1 ? 'pointer-events-none opacity-50' : ''}
+            className={
+              currentPage === 1 ? 'pointer-events-none opacity-50' : ''
+            }
           />
         </PaginationItem>
 
-        {getVisiblePages().map((page, index) => (
-          <PaginationItem key={index}>
+        {getVisiblePages().map((page) => (
+          <PaginationItem key={page}>
             {page === 'ellipsis' ? (
               <PaginationEllipsis />
             ) : (
@@ -91,7 +110,9 @@ const PagePaginator = ({
               }
             }}
             aria-disabled={currentPage === totalPages}
-            className={currentPage === totalPages ? 'pointer-events-none opacity-50' : ''}
+            className={
+              currentPage === totalPages ? 'pointer-events-none opacity-50' : ''
+            }
           />
         </PaginationItem>
       </PaginationContent>

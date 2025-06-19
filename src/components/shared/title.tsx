@@ -6,7 +6,7 @@ type TitleProps = {
 };
 
 const Title = ({ children, className }: TitleProps) => (
-  <h1 className={cn('text-2xl mb-2', className)}>{children}</h1>
+  <h3 className={cn('text-2xl mb-2', className)}>{children}</h3>
 );
 
 export default Title;

@@ -1,5 +1,6 @@
 import {
   getDamageRelationsDamages,
+  getPokemonByType,
   getPokemonCharacteristics,
   getPokemonDetails,
   getPokemonEvolutions,
@@ -7,10 +8,32 @@ import {
 } from '@/services/pokemon';
 import { useQuery } from '@tanstack/react-query';
 
-export function usePokemonList(limit = 20, offset = 0, name?: string) {
+export function usePokemonList(
+  limit = 20,
+  offset = 0,
+  name?: string,
+  type?: string
+) {
+  console.log('type', type, name);
   return useQuery({
-    queryKey: ['pokemon-list', limit, offset, name],
-    queryFn: () => getPokemonList(limit, offset, name),
+    queryKey: ['pokemon-list', limit, offset, name, type],
+    queryFn: () => {
+      if (type && !name) {
+        // If type is specified and no name, get Pokemon by type
+        return getPokemonByType(type);
+      }
+      // Otherwise use the regular list endpoint
+      return getPokemonList(limit, offset, name);
+    },
+    enabled: !!name || !!type || !!limit || !!offset,
+  });
+}
+
+export function usePokemonByType(type: string) {
+  return useQuery({
+    queryKey: ['pokemon-by-type', type],
+    queryFn: () => getPokemonByType(type),
+    enabled: !!type,
   });
 }
 
@@ -38,16 +61,14 @@ export function usePokemonEvolution(id: string) {
   });
 }
 
-export function usePokemonDetailsList(names: string[]) {
+export function usePokemonDetailsList(ids: string[]) {
   return useQuery({
-    queryKey: ['pokemon-details-list', names],
+    queryKey: ['pokemon-details-list', ids],
     queryFn: async () => {
-      const details = await Promise.all(
-        names.map((name) => getPokemonDetails(name))
-      );
+      const details = await Promise.all(ids.map((id) => getPokemonDetails(id)));
       return details;
     },
-    enabled: names.length > 0,
+    enabled: ids.length > 0,
   });
 }
 

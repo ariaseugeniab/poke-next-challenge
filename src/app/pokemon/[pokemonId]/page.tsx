@@ -1,5 +1,6 @@
 'use client';
 
+import Damages from '@/components/pokemon/damages';
 import PokemonColorBackground from '@/components/pokemon/pokemon-color-background';
 import PokemonImage from '@/components/pokemon/pokemon-image';
 import PokemonTypeImage from '@/components/pokemon/pokemon-type-image';
@@ -99,33 +100,7 @@ const PokemonPage = () => {
               </p>
 
               {damageRelationsDamages && (
-                <>
-                  <p className="text-lg font-semibold">Damage Relations:</p>
-
-                  <p className="text-sm text-gray-500">Double Damage From:</p>
-                  <div className="flex gap-2 mt-2">
-                    {damageRelationsDamages?.damage_relations.double_damage_from.map(
-                      (damage) => (
-                        <PokemonTypeLabel
-                          key={damage.name}
-                          type={damage.name as PokemonType}
-                        />
-                      )
-                    )}
-                  </div>
-
-                  <p className="text-sm text-gray-500">Double Damage To:</p>
-                  <div className="flex gap-2 mt-2">
-                    {damageRelationsDamages?.damage_relations.double_damage_to.map(
-                      (damage) => (
-                        <PokemonTypeLabel
-                          key={damage.name}
-                          type={damage.name as PokemonType}
-                        />
-                      )
-                    )}
-                  </div>
-                </>
+                <Damages damageRelationsDamages={damageRelationsDamages} />
               )}
             </div>
           </div>
