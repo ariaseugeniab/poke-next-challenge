@@ -2,15 +2,19 @@
 
 import PokemonColorBackground from '@/components/pokemon/pokemon-color-background';
 import PokemonImage from '@/components/pokemon/pokemon-image';
+import PokemonTypeImage from '@/components/pokemon/pokemon-type-image';
 import PokemonTypeLabel from '@/components/pokemon/pokemon-type-label';
 import BackButton from '@/components/shared/back-button';
 import FavoriteButton from '@/components/shared/favorite-button';
 import Loading from '@/components/shared/loading';
 import Subtitle from '@/components/shared/subtitle';
 import Title from '@/components/shared/title';
-import { usePokemonDetails, usePokemonEvolution } from '@/hooks/use-pokemon';
+import {
+  useDamageRelationsDamages,
+  usePokemonCharacteristics,
+  usePokemonDetails,
+} from '@/hooks/use-pokemon';
 import type { PokemonType } from '@/types/pokemon';
-import Image from 'next/image';
 import { useParams } from 'next/navigation';
 
 const PokemonPage = () => {
@@ -18,14 +22,32 @@ const PokemonPage = () => {
 
   const { data: pokemon, isLoading } = usePokemonDetails(pokemonId as string);
 
-  const { data: evolutions, isLoading: isLoadingEvolutions } =
-    usePokemonEvolution(pokemonId as string);
+  const {
+    data: pokemonCharacteristics,
+    isLoading: isLoadingPokemonCharacteristics,
+  } = usePokemonCharacteristics(pokemonId as string);
 
-  console.log(evolutions);
+  const {
+    data: damageRelationsDamages,
+    isLoading: isLoadingDamageRelationsDamages,
+  } = useDamageRelationsDamages(pokemonId as string);
 
-  if (isLoadingEvolutions || isLoading || !pokemon) <Loading />;
+  // const { data: evolutionChain, isLoading: isLoadingEvolutionChain } =
+  //   usePokemonEvolution(pokemonId as string);
 
-  // if (!pokemon) return <div>Pokemon not found</div>;
+  // console.log(evolutionChain);
+
+  if (
+    isLoading ||
+    !pokemon ||
+    isLoadingPokemonCharacteristics ||
+    isLoadingDamageRelationsDamages
+  )
+    return <Loading />;
+
+  const englishDescription = pokemonCharacteristics?.descriptions.find(
+    (desc) => desc.language.name === 'en'
+  )?.description;
 
   return (
     <div>
@@ -35,18 +57,18 @@ const PokemonPage = () => {
             pokemonTypeColor={pokemon?.types[0].type.name as PokemonType}
           />
 
-          <Image
-            src={`/icons/${pokemon?.types[0].type.name}.png`}
-            alt={pokemon?.types[0].type.name ?? 'Pokemon'}
-            width={150}
-            height={150}
-            className="grayscale brightness-0 invert absolute top-0 left-[50%] translate-x-[-50%] translate-y-[20%]"
+          <PokemonTypeImage
+            type={pokemon?.types[0].type.name as PokemonType}
+            alt={pokemon?.name ?? 'Pokemon'}
           />
 
           <div className="relative p-4 w-full h-full">
             <BackButton />
 
-            <FavoriteButton pokemonId={pokemonId?.toString() ?? ''} />
+            <FavoriteButton
+              pokemonId={pokemonId?.toString() ?? ''}
+              className="w-10 h-10"
+            />
 
             <PokemonImage
               imageUrl={pokemon?.sprites.front_default}
@@ -54,19 +76,57 @@ const PokemonPage = () => {
               imageClassName="w-full h-80"
             />
 
-            <Title className="text-2xl font-semibold capitalize">
-              {pokemon?.name}
-            </Title>
+            <div className="flex flex-col gap-2 w-4/5 mx-auto">
+              <div className="flex gap-4 items-center">
+                <Title className="text-2xl font-semibold capitalize m-0">
+                  {pokemon?.name}
+                </Title>
 
-            <Subtitle>N° {pokemon?.id}</Subtitle>
+                <div className="flex gap-2 mt-2">
+                  {pokemon?.types.map((type) => (
+                    <PokemonTypeLabel
+                      key={type.type.name}
+                      type={type.type.name as PokemonType}
+                    />
+                  ))}
+                </div>
+              </div>
 
-            <div className="flex gap-2 mt-2">
-              {pokemon?.types.map((type) => (
-                <PokemonTypeLabel
-                  key={type.type.name}
-                  type={type.type.name as PokemonType}
-                />
-              ))}
+              <Subtitle>N° {pokemon?.id}</Subtitle>
+
+              <p className="mt-4 text-gray-700">
+                {englishDescription || 'No description available'}
+              </p>
+
+              {damageRelationsDamages && (
+                <>
+                  <p className="text-lg font-semibold">Damage Relations:</p>
+
+                  <p className="text-sm text-gray-500">Double Damage From:</p>
+                  <div className="flex gap-2 mt-2">
+                    {damageRelationsDamages?.damage_relations.double_damage_from.map(
+                      (damage) => (
+                        <PokemonTypeLabel
+                          key={damage.name}
+                          type={damage.name as PokemonType}
+                        />
+                      )
+                    )}
+                  </div>
+
+                  <p className="text-sm text-gray-500">Double Damage To:</p>
+                  <div className="flex gap-2 mt-2">
+                    {damageRelationsDamages?.damage_relations.double_damage_to.map(
+                      (damage) => (
+                        <PokemonTypeLabel
+                          key={damage.name}
+                          type={damage.name as PokemonType}
+                        />
+                      )
+                    )}
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </div>

@@ -8,10 +8,10 @@ const BackButton = () => {
   return (
     <Button
       onClick={() => router.back()}
-      className="bg-white border-white text-black cursor-pointer"
+      className="text-white cursor-pointer border border-white rounded-full"
       variant="ghost"
     >
-      <ArrowLeftIcon className="w-4 h-4" />
+      <ArrowLeftIcon className="w-10 h-10" />
     </Button>
   );
 };

@@ -5,9 +5,10 @@ import { Button } from './button';
 
 interface FavoriteButtonProps {
   pokemonId: string;
+  className?: string;
 }
 
-const FavoriteButton = ({ pokemonId }: FavoriteButtonProps) => {
+const FavoriteButton = ({ pokemonId, className }: FavoriteButtonProps) => {
   const { isFavorite, toggleFavorite } = useUserContext();
   const isFav = isFavorite(pokemonId);
 
@@ -22,7 +23,8 @@ const FavoriteButton = ({ pokemonId }: FavoriteButtonProps) => {
       size="icon"
       className={cn(
         'absolute top-2 right-2 z-10 hover:cursor-pointer border border-white rounded-full bg-gray transition-all duration-300',
-        isFav && 'border-fighting'
+        isFav && 'border-fighting',
+        className
       )}
       onClick={handleFavoriteClick}
     >

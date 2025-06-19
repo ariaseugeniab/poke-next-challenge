@@ -20,7 +20,7 @@ const PokemonCard = ({ pokemon }: PokemonCardProps) => (
     <div className="relative p-4">
       <FavoriteButton pokemonId={pokemon.id.toString()} />
 
-      <Link href={`/pokemon/${pokemon.id}`}>
+      <Link href={`/pokemon/${pokemon.id}`} scroll={false}>
         <PokemonImage
           imageUrl={pokemon.sprites.front_default}
           alt={pokemon.name}
