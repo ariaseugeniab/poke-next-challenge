@@ -86,7 +86,7 @@ export type PokemonCharacteristic = {
   }[];
 };
 
-export type DamageRelationsDamage = {
+export type DamageRelations = {
   damage_relations: {
     double_damage_from: {
       name: string;

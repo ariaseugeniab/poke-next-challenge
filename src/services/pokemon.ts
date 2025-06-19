@@ -1,5 +1,5 @@
 import type {
-  DamageRelationsDamage,
+  DamageRelations,
   Pokemon,
   PokemonCharacteristic,
   PokemonListResponse,
@@ -77,12 +77,12 @@ export async function getPokemonByType(
   };
 }
 
-export async function getPokemonDetails(name: string): Promise<Pokemon> {
+export async function getPokemonDetails(id: string): Promise<Pokemon> {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/pokemon/${name}`
+    `${process.env.NEXT_PUBLIC_BASE_URL}/pokemon/${id}`
   );
   if (!response.ok) {
-    throw new Error(`Failed to fetch Pokemon details for ${name}`);
+    throw new Error(`Failed to fetch Pokemon details for ${id}`);
   }
   return response.json();
 }
@@ -111,7 +111,7 @@ export async function getPokemonEvolutions(id: string): Promise<Pokemon> {
 
 export async function getDamageRelationsDamages(
   id: string
-): Promise<DamageRelationsDamage> {
+): Promise<DamageRelations> {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/type/${id}`
   );
