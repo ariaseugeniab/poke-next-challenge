@@ -4,7 +4,6 @@ const nextConfig: NextConfig = {
   output: 'export',
   trailingSlash: true,
   basePath: '/poke-next-challenge',
-  assetPrefix: '/poke-next-challenge',
   images: {
     unoptimized: true,
     remotePatterns: [

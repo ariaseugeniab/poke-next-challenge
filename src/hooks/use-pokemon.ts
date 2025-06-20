@@ -14,7 +14,6 @@ export function usePokemonList(
   name?: string,
   type?: string
 ) {
-  console.log('type', type, name);
   return useQuery({
     queryKey: ['pokemon-list', limit, offset, name, type],
     queryFn: () => {

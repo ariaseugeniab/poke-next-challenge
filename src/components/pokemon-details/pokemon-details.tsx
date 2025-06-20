@@ -30,11 +30,6 @@ const PokemonDetails = () => {
   const { data: damageRelations, isLoading: isLoadingDamageRelations } =
     useDamageRelations(pokemonId as string);
 
-  // const { data: evolutionChain, isLoading: isLoadingEvolutionChain } =
-  //   usePokemonEvolution(pokemonId as string);
-
-  // console.log(evolutionChain);
-
   if (
     isLoading ||
     !pokemon ||
