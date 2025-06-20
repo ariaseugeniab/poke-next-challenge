@@ -27,7 +27,7 @@ const PokemonCard = ({ pokemon }: PokemonCardProps) => {
 
   return (
     <article
-      className="rounded-lg shadow-md hover:shadow-lg transition-shadow relative md:w-1/5 w-full focus-within:ring-2 focus-within:ring-gray-500 focus-within:ring-offset-2"
+      className="rounded-lg shadow-md hover:shadow-lg transition-shadow relative md:w-[49%] lg:w-[24%] w-full focus-within:ring-2 focus-within:ring-gray-500 focus-within:ring-offset-2"
       aria-labelledby={`pokemon-name-${pokemon.id}`}
       aria-describedby={`pokemon-types-${pokemon.id}`}
     >

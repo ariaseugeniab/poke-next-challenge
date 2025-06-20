@@ -25,7 +25,7 @@ const PokemonList = ({ pokemonDetails, isLoading }: PokemonListProps) => (
             </h2>
 
             <div
-              className="flex flex-wrap md:gap-2 gap-3 items-center justify-center"
+              className="flex flex-wrap md:gap-2 gap-3 items-center justify-between"
               aria-label={`List of ${pokemonDetails.length} Pokemon`}
             >
               {pokemonDetails.map((pokemon) => (

@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { z } from 'zod';
 
 interface UseQueryParamsOptions<T extends z.ZodType> {
@@ -38,7 +38,14 @@ export const useQueryParams = <T extends z.ZodType>(
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
+  // Initialize with default values to prevent hydration mismatch
   const [params, setParams] = useState<QueryParams>(() => {
+    // Parse empty object first to get default values
+    return schema.parse({});
+  });
+
+  // Sync with URL params after component mounts
+  useEffect(() => {
     const initialParams = Object.fromEntries(
       Array.from(searchParams.entries()).map(([key, value]) => [
         key,
@@ -46,8 +53,9 @@ export const useQueryParams = <T extends z.ZodType>(
       ])
     );
 
-    return schema.parse(initialParams);
-  });
+    const parsedParams = schema.parse(initialParams);
+    setParams(parsedParams);
+  }, [searchParams, schema]);
 
   const debounceTimers = useRef<Record<string, NodeJS.Timeout | null>>({});
 
