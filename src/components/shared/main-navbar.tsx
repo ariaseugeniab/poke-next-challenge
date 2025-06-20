@@ -4,10 +4,10 @@ import { PokenextLogo } from './pokenext-logo';
 
 const MainNavbar = () => (
   <nav
-    className="w-full fixed top-0 left-0 border-b border-gray-200 py-2 px-4 bg-white z-50"
+    className="w-full fixed top-0 left-0 border-b border-gray-200 py-2 md:px-4 px-1 bg-white z-50"
     aria-label="Main navigation"
   >
-    <div className="w-full max-w-[1440px] mx-auto flex items-center justify-between">
+    <div className="max-w-[1440px] mx-auto flex items-center justify-between md:w-full w-11/12">
       <PokenextLogo />
 
       <div className="flex items-center justify-end gap-4">

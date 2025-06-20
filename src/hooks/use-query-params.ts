@@ -37,22 +37,22 @@ export const useQueryParams = <T extends z.ZodType>(
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const [mounted, setMounted] = useState(false);
 
-  // Initialize with default values to prevent hydration mismatch
+  // Initialize with schema defaults to prevent hydration mismatch
   const [params, setParams] = useState<QueryParams>(() => {
-    // Parse empty object first to get default values
     return schema.parse({});
   });
 
-  // Sync with URL params after component mounts
+  // Sync with URL params after mounting (client-side only)
   useEffect(() => {
+    setMounted(true);
     const initialParams = Object.fromEntries(
       Array.from(searchParams.entries()).map(([key, value]) => [
         key,
         value ?? undefined,
       ])
     );
-
     const parsedParams = schema.parse(initialParams);
     setParams(parsedParams);
   }, [searchParams, schema]);
@@ -63,6 +63,8 @@ export const useQueryParams = <T extends z.ZodType>(
 
   const updateQueryParams = useCallback(
     (updatedParams: Partial<QueryParams>) => {
+      if (!mounted) return;
+
       const validatedParams = schema.parse({
         ...latestParams.current,
         ...updatedParams,
@@ -88,7 +90,7 @@ export const useQueryParams = <T extends z.ZodType>(
 
       latestParams.current = validatedParams;
     },
-    [pathname, router, searchParams, schema]
+    [pathname, router, searchParams, schema, mounted]
   );
 
   const setQueryParams = useCallback(
