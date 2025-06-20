@@ -46,7 +46,10 @@ const FavoritesList = () => {
         {pokemonDetails.length} Pokémon in your favorites
       </Subtitle>
 
-      <div className="flex flex-wrap gap-4 items-center justify-center">
+      <div
+        className="flex flex-wrap md:gap-2 gap-3 items-center justify-center w-full"
+        aria-label={`List of ${pokemonDetails.length} Favorites Pokémon`}
+      >
         {pokemonDetails.map((pokemon) => (
           <PokemonCard key={pokemon.id} pokemon={pokemon} />
         ))}

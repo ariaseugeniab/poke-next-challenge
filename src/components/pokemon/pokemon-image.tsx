@@ -15,7 +15,7 @@ const PokemonImage = ({
     <Image
       src={imageUrl ?? '/utils/missingno.webp'}
       alt={alt}
-      className="object-contain"
+      className="object-contain p-1"
       fill
     />
   </div>

@@ -23,9 +23,10 @@ const PokemonList = ({ pokemonDetails, isLoading }: PokemonListProps) => (
             <h2 id="pokemon-results-title" className="sr-only">
               Pokemon Results ({pokemonDetails.length} found)
             </h2>
+
             <div
-              className="flex flex-wrap gap-4 items-center justify-center"
-              aria-label={`Grid of ${pokemonDetails.length} Pokemon cards`}
+              className="flex flex-wrap md:gap-2 gap-3 items-center justify-center"
+              aria-label={`List of ${pokemonDetails.length} Pokemon`}
             >
               {pokemonDetails.map((pokemon) => (
                 <PokemonCard key={pokemon.id} pokemon={pokemon} />

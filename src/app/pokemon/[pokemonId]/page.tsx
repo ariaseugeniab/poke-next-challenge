@@ -51,58 +51,56 @@ const PokemonPage = () => {
   )?.description;
 
   return (
-    <div>
-      <div className="flex flex-col items-center justify-center">
-        <div className="flex flex-col items-center justify-center gap-2 relative w-full">
-          <PokemonColorBackground
-            pokemonTypeColor={pokemon?.types[0].type.name as PokemonType}
+    <div className="flex flex-col items-center justify-center md:mt-2 mt-8">
+      <div className="flex flex-col items-center justify-center gap-2 relative w-full">
+        <PokemonColorBackground
+          pokemonTypeColor={pokemon?.types[0].type.name as PokemonType}
+        />
+
+        <PokemonTypeImage
+          type={pokemon?.types[0].type.name as PokemonType}
+          alt={pokemon?.name ?? 'Pokemon'}
+        />
+
+        <div className="relative p-4 w-full h-full">
+          <BackButton />
+
+          <FavoriteButton
+            pokemonId={pokemonId?.toString() ?? ''}
+            className="w-10 h-10"
           />
 
-          <PokemonTypeImage
-            type={pokemon?.types[0].type.name as PokemonType}
+          <PokemonImage
+            imageUrl={pokemon?.sprites.front_default}
             alt={pokemon?.name ?? 'Pokemon'}
+            imageClassName="w-full md:h-80 h-60"
           />
 
-          <div className="relative p-4 w-full h-full">
-            <BackButton />
+          <div className="flex flex-col gap-2 md:w-4/5 w-full mx-auto">
+            <div className="flex gap-4 items-center">
+              <Title className="text-2xl font-semibold capitalize m-0">
+                {pokemon?.name}
+              </Title>
 
-            <FavoriteButton
-              pokemonId={pokemonId?.toString() ?? ''}
-              className="w-10 h-10"
-            />
-
-            <PokemonImage
-              imageUrl={pokemon?.sprites.front_default}
-              alt={pokemon?.name ?? 'Pokemon'}
-              imageClassName="w-full h-80"
-            />
-
-            <div className="flex flex-col gap-2 w-4/5 mx-auto">
-              <div className="flex gap-4 items-center">
-                <Title className="text-2xl font-semibold capitalize m-0">
-                  {pokemon?.name}
-                </Title>
-
-                <div className="flex gap-2 mt-2">
-                  {pokemon?.types.map((type) => (
-                    <PokemonTypeLabel
-                      key={type.type.name}
-                      type={type.type.name as PokemonType}
-                    />
-                  ))}
-                </div>
+              <div className="flex gap-2 mt-2">
+                {pokemon?.types.map((type) => (
+                  <PokemonTypeLabel
+                    key={type.type.name}
+                    type={type.type.name as PokemonType}
+                  />
+                ))}
               </div>
-
-              <Subtitle>N° {pokemon?.id}</Subtitle>
-
-              <p className="mt-4 text-gray-700">
-                {englishDescription || 'No description available'}
-              </p>
-
-              {damageRelationsDamages && (
-                <Damages damageRelationsDamages={damageRelationsDamages} />
-              )}
             </div>
+
+            <Subtitle>No. {pokemon?.id}</Subtitle>
+
+            <p className="mt-2 text-gray-700">
+              Description: {englishDescription || 'No description available'}
+            </p>
+
+            {damageRelationsDamages && (
+              <Damages damageRelationsDamages={damageRelationsDamages} />
+            )}
           </div>
         </div>
       </div>

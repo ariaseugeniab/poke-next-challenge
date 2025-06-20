@@ -10,7 +10,7 @@ import type { Pokemon } from '@/types/pokemon';
 import { useEffect, useState } from 'react';
 import Loading from '../shared/loading';
 
-const ITEMS_PER_PAGE = 27;
+const ITEMS_PER_PAGE = 20;
 
 const HomeComponent = () => {
   const { queryParams, setQueryParams } = useQueryParams(

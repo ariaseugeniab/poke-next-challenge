@@ -31,7 +31,7 @@ const FavoriteButton = ({ pokemonId, className }: FavoriteButtonProps) => {
       variant="ghost"
       size="icon"
       className={cn(
-        'absolute top-2 right-2 z-10 hover:cursor-pointer border-2 border-white rounded-full bg-gray transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2',
+        'absolute md:top-2 top-3 right-2 z-10 hover:cursor-pointer border-2 border-white rounded-full bg-gray transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2',
         isFav && 'border-fighting',
         className
       )}

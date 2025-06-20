@@ -8,29 +8,37 @@ const Damages = ({
   <div>
     <p className="text-lg font-semibold">Damage Relations:</p>
 
-    <p className="text-sm text-gray-500">Double Damage From:</p>
-    <div className="flex gap-2 mt-2">
-      {damageRelationsDamages?.damage_relations.double_damage_from.map(
-        (damage) => (
-          <PokemonTypeLabel
-            key={damage.name}
-            type={damage.name as PokemonType}
-          />
-        )
-      )}
-    </div>
+    {damageRelationsDamages?.damage_relations.double_damage_from && (
+      <div className="md:my-5 my-2">
+        <p className="text-sm text-gray-500">Double Damage From:</p>
+        <div className="flex gap-2 mt-2">
+          {damageRelationsDamages?.damage_relations.double_damage_from.map(
+            (damage) => (
+              <PokemonTypeLabel
+                key={damage.name}
+                type={damage.name as PokemonType}
+              />
+            )
+          )}
+        </div>
+      </div>
+    )}
 
-    <p className="text-sm text-gray-500">Double Damage To:</p>
-    <div className="flex gap-2 mt-2">
-      {damageRelationsDamages?.damage_relations.double_damage_to.map(
-        (damage) => (
-          <PokemonTypeLabel
-            key={damage.name}
-            type={damage.name as PokemonType}
-          />
-        )
-      )}
-    </div>
+    {damageRelationsDamages?.damage_relations.double_damage_to.length > 0 && (
+      <div className="md:my-5 my-2">
+        <p className="text-sm text-gray-500">Double Damage To:</p>
+        <div className="flex gap-2 mt-2">
+          {damageRelationsDamages?.damage_relations.double_damage_to.map(
+            (damage) => (
+              <PokemonTypeLabel
+                key={damage.name}
+                type={damage.name as PokemonType}
+              />
+            )
+          )}
+        </div>
+      </div>
+    )}
   </div>
 );
 
