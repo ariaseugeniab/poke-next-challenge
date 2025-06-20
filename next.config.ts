@@ -4,6 +4,8 @@ const nextConfig: NextConfig = {
   output: 'export',
   trailingSlash: true,
   basePath: '/poke-next-challenge',
+  assetPrefix:
+    process.env.NODE_ENV === 'production' ? '/poke-next-challenge' : '',
   images: {
     unoptimized: true,
     remotePatterns: [
