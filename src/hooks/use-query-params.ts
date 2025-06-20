@@ -1,6 +1,8 @@
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useRef, useState } from "react";
-import { z } from "zod";
+'use client';
+
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useCallback, useRef, useState } from 'react';
+import { z } from 'zod';
 
 interface UseQueryParamsOptions<T extends z.ZodType> {
   debouncedValues?: Array<keyof z.infer<T>>;
@@ -27,7 +29,7 @@ interface UseQueryParamsOptions<T extends z.ZodType> {
  */
 export const useQueryParams = <T extends z.ZodType>(
   schema: T,
-  options: UseQueryParamsOptions<T> = {},
+  options: UseQueryParamsOptions<T> = {}
 ) => {
   type QueryParams = z.infer<T>;
 
@@ -38,7 +40,10 @@ export const useQueryParams = <T extends z.ZodType>(
 
   const [params, setParams] = useState<QueryParams>(() => {
     const initialParams = Object.fromEntries(
-      Array.from(searchParams.entries()).map(([key, value]) => [key, value ?? undefined]),
+      Array.from(searchParams.entries()).map(([key, value]) => [
+        key,
+        value ?? undefined,
+      ])
     );
 
     return schema.parse(initialParams);
@@ -50,7 +55,10 @@ export const useQueryParams = <T extends z.ZodType>(
 
   const updateQueryParams = useCallback(
     (updatedParams: Partial<QueryParams>) => {
-      const validatedParams = schema.parse({ ...latestParams.current, ...updatedParams });
+      const validatedParams = schema.parse({
+        ...latestParams.current,
+        ...updatedParams,
+      });
 
       // Create a new URLSearchParams instance based on current parameters
       const newSearchParams = new URLSearchParams(searchParams.toString());
@@ -59,18 +67,20 @@ export const useQueryParams = <T extends z.ZodType>(
       for (const key in validatedParams) {
         const value = validatedParams[key];
 
-        if (value != null && value !== "") {
+        if (value != null && value !== '') {
           newSearchParams.set(key, String(value));
         } else {
           newSearchParams.delete(key);
         }
       }
 
-      router.replace(`${pathname}?${newSearchParams.toString()}`, { scroll: false });
+      router.replace(`${pathname}?${newSearchParams.toString()}`, {
+        scroll: false,
+      });
 
       latestParams.current = validatedParams;
     },
-    [pathname, router, searchParams, schema],
+    [pathname, router, searchParams, schema]
   );
 
   const setQueryParams = useCallback(
@@ -103,13 +113,15 @@ export const useQueryParams = <T extends z.ZodType>(
         }
 
         debounceTimers.current[stringKey] = setTimeout(() => {
-          updateQueryParams({ [stringKey]: debouncedParams[stringKey] } as Partial<QueryParams>);
+          updateQueryParams({
+            [stringKey]: debouncedParams[stringKey],
+          } as Partial<QueryParams>);
 
           debounceTimers.current[stringKey] = null;
         }, 300);
       }
     },
-    [debouncedValues, updateQueryParams],
+    [debouncedValues, updateQueryParams]
   );
 
   return { queryParams: params, setQueryParams };

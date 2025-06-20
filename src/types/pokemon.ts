@@ -29,21 +29,72 @@ export type Pokemon = {
 };
 
 export type PokemonType =
-  | 'water'
+  | 'bug'
+  | 'dark'
   | 'dragon'
   | 'electric'
   | 'fairy'
-  | 'ghost'
+  | 'fighting'
   | 'fire'
-  | 'ice'
+  | 'flying'
+  | 'ghost'
   | 'grass'
-  | 'bug'
-  | 'fighter'
+  | 'ground'
+  | 'ice'
   | 'normal'
-  | 'nocturne'
-  | 'metal'
-  | 'stone'
-  | 'psychic'
-  | 'earth'
   | 'poison'
-  | 'flying';
+  | 'psychic'
+  | 'rock'
+  | 'steel'
+  | 'water';
+
+export const POKEMON_TYPES = [
+  'bug',
+  'dark',
+  'dragon',
+  'electric',
+  'fairy',
+  'fighting',
+  'fire',
+  'flying',
+  'ghost',
+  'grass',
+  'ground',
+  'ice',
+  'normal',
+  'poison',
+  'psychic',
+  'rock',
+  'steel',
+  'water',
+] as const;
+
+export type PokemonCharacteristic = {
+  id: number;
+  gene_modulo: number;
+  possible_values: number[];
+  highest_stat: {
+    name: string;
+    url: string;
+  };
+  descriptions: {
+    description: string;
+    language: {
+      name: string;
+      url: string;
+    };
+  }[];
+};
+
+export type DamageRelations = {
+  damage_relations: {
+    double_damage_from: {
+      name: string;
+      url: string;
+    }[];
+    double_damage_to: {
+      name: string;
+      url: string;
+    }[];
+  };
+};
