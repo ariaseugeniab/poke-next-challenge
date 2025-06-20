@@ -1,15 +1,12 @@
 import type { NextConfig } from 'next';
 
-const isProd = process.env.NODE_ENV === 'production';
-const repoName = 'poke-next-challenge'; // Replace with your actual repository name
-
 const nextConfig: NextConfig = {
-  output: 'standalone',
+  output: 'export',
   trailingSlash: true,
-  basePath: isProd ? `/${repoName}` : '',
-  assetPrefix: isProd ? `/${repoName}/` : '',
+  basePath: '/poke-next-challenge',
+  assetPrefix: '/poke-next-challenge',
   images: {
-    unoptimized: true, // Required for static export
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
