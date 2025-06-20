@@ -38,7 +38,7 @@ const Input = <T extends FieldValues, K extends string>({
       const describedBy = errorId ? errorId : undefined;
 
       return (
-        <div className="input-group relative flex items-center">
+        <div className="input-group relative flex items-center w-full">
           {label && (
             <label htmlFor={inputId} className="form-label sr-only">
               {label}
