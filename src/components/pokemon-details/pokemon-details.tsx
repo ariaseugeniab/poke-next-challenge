@@ -11,7 +11,7 @@ import Loading from '@/components/shared/loading';
 import Subtitle from '@/components/shared/subtitle';
 import Title from '@/components/shared/title';
 import {
-  useDamageRelationsDamages,
+  useDamageRelations,
   usePokemonCharacteristics,
   usePokemonDetails,
 } from '@/hooks/use-pokemon';
@@ -27,10 +27,8 @@ const PokemonDetails = () => {
     isLoading: isLoadingPokemonCharacteristics,
   } = usePokemonCharacteristics(pokemonId as string);
 
-  const {
-    data: damageRelationsDamages,
-    isLoading: isLoadingDamageRelationsDamages,
-  } = useDamageRelationsDamages(pokemonId as string);
+  const { data: damageRelations, isLoading: isLoadingDamageRelations } =
+    useDamageRelations(pokemonId as string);
 
   // const { data: evolutionChain, isLoading: isLoadingEvolutionChain } =
   //   usePokemonEvolution(pokemonId as string);
@@ -41,7 +39,7 @@ const PokemonDetails = () => {
     isLoading ||
     !pokemon ||
     isLoadingPokemonCharacteristics ||
-    isLoadingDamageRelationsDamages
+    isLoadingDamageRelations
   )
     return <Loading />;
 
@@ -97,8 +95,9 @@ const PokemonDetails = () => {
               Description: {englishDescription || 'No description available'}
             </p>
 
-            {damageRelationsDamages && (
-              <Damages damageRelationsDamages={damageRelationsDamages} />
+            {(damageRelations?.double_damage_from ||
+              damageRelations?.double_damage_to) && (
+              <Damages damageRelationsDamages={damageRelations} />
             )}
           </div>
         </div>

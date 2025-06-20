@@ -1,5 +1,5 @@
 import {
-  getDamageRelationsDamages,
+  getDamageRelations,
   getPokemonByType,
   getPokemonCharacteristics,
   getPokemonDetails,
@@ -72,10 +72,13 @@ export function usePokemonDetailsList(ids: string[]) {
   });
 }
 
-export function useDamageRelationsDamages(id: string) {
+export function useDamageRelations(id: string) {
   return useQuery({
-    queryKey: ['damage-relations-damages', id],
-    queryFn: () => getDamageRelationsDamages(id),
+    queryKey: ['damage-relations', id],
+    queryFn: async () => {
+      const data = await getDamageRelations(id);
+      return data.damage_relations;
+    },
     enabled: !!id,
   });
 }

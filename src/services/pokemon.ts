@@ -1,5 +1,5 @@
 import type {
-  DamageRelations,
+  DamageRelationsResponse,
   Pokemon,
   PokemonCharacteristic,
   PokemonListResponse,
@@ -109,9 +109,9 @@ export async function getPokemonEvolutions(id: string): Promise<Pokemon> {
   return response.json();
 }
 
-export async function getDamageRelationsDamages(
+export async function getDamageRelations(
   id: string
-): Promise<DamageRelations> {
+): Promise<DamageRelationsResponse> {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/type/${id}`
   );

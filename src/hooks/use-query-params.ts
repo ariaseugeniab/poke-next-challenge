@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { z } from 'zod';
 
 interface UseQueryParamsOptions<T extends z.ZodType> {
@@ -37,17 +37,25 @@ export const useQueryParams = <T extends z.ZodType>(
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const [mounted, setMounted] = useState(false);
 
+  // Initialize with schema defaults to prevent hydration mismatch
   const [params, setParams] = useState<QueryParams>(() => {
+    return schema.parse({});
+  });
+
+  // Sync with URL params after mounting (client-side only)
+  useEffect(() => {
+    setMounted(true);
     const initialParams = Object.fromEntries(
       Array.from(searchParams.entries()).map(([key, value]) => [
         key,
         value ?? undefined,
       ])
     );
-
-    return schema.parse(initialParams);
-  });
+    const parsedParams = schema.parse(initialParams);
+    setParams(parsedParams);
+  }, [searchParams, schema]);
 
   const debounceTimers = useRef<Record<string, NodeJS.Timeout | null>>({});
 
@@ -55,6 +63,8 @@ export const useQueryParams = <T extends z.ZodType>(
 
   const updateQueryParams = useCallback(
     (updatedParams: Partial<QueryParams>) => {
+      if (!mounted) return;
+
       const validatedParams = schema.parse({
         ...latestParams.current,
         ...updatedParams,
@@ -80,7 +90,7 @@ export const useQueryParams = <T extends z.ZodType>(
 
       latestParams.current = validatedParams;
     },
-    [pathname, router, searchParams, schema]
+    [pathname, router, searchParams, schema, mounted]
   );
 
   const setQueryParams = useCallback(

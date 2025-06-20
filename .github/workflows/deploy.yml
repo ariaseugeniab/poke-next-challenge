@@ -1,15 +1,11 @@
-name: Deploy static Next.js site to GitHub Pages
+name: Deploy to GitHub Pages
 
 on:
   push:
-    branches:
-      - main
-
-permissions:
-  contents: write
+    branches: [main]
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,11 +19,7 @@ jobs:
 
       - run: pnpm run build
 
-      - name: Export static site
-        run: pnpm exec next build
-
-      - name: Add .nojekyll to prevent GitHub Pages from running Jekyll
-        run: touch out/.nojekyll
+      - run: touch out/.nojekyll
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3

@@ -86,7 +86,7 @@ export type PokemonCharacteristic = {
   }[];
 };
 
-export type DamageRelations = {
+export type DamageRelationsResponse = {
   damage_relations: {
     double_damage_from: {
       name: string;
@@ -97,4 +97,15 @@ export type DamageRelations = {
       url: string;
     }[];
   };
+};
+
+export type DamageRelations = {
+  double_damage_from: {
+    name: string;
+    url: string;
+  }[];
+  double_damage_to: {
+    name: string;
+    url: string;
+  }[];
 };

@@ -20,12 +20,18 @@ const HomeComponent = () => {
     }
   );
 
-  const [currentPage, setCurrentPage] = useState(
-    queryParams.page ? Number.parseInt(queryParams.page) : 1
-  );
+  // Initialize currentPage with default value to prevent hydration mismatch
+  const [currentPage, setCurrentPage] = useState(1);
 
   const [searchResultsAnnouncement, setSearchResultsAnnouncement] =
     useState('');
+
+  // Sync currentPage with queryParams.page after query params are loaded
+  useEffect(() => {
+    if (queryParams.page) {
+      setCurrentPage(Number.parseInt(queryParams.page));
+    }
+  }, [queryParams.page]);
 
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
