@@ -18,7 +18,7 @@ import {
 import type { PokemonType } from '@/types/pokemon';
 import { useParams } from 'next/navigation';
 
-const PokemonDetailsComponent = () => {
+const PokemonDetails = () => {
   const { pokemonId } = useParams();
   const { data: pokemon, isLoading } = usePokemonDetails(pokemonId as string);
 
@@ -106,4 +106,4 @@ const PokemonDetailsComponent = () => {
   );
 };
 
-export default PokemonDetailsComponent;
+export default PokemonDetails;
