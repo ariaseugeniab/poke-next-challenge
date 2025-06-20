@@ -24,7 +24,7 @@ jobs:
       - run: pnpm run build
 
       - name: Export static site
-        run: pnpm exec next export
+        run: pnpm exec next build
 
       - name: Add .nojekyll to prevent GitHub Pages from running Jekyll
         run: touch out/.nojekyll
