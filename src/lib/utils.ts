@@ -5,7 +5,6 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-const basePath =
-  `${process.env.NEXT_PUBLIC_BASE_PATH}/poke-next-challenge` || '';
+const basePath = '/poke-next-challenge';
 
 export { basePath };
