@@ -1,6 +1,6 @@
-import PokemonDetailsComponent from '@/components/pokemon-details/pokemon-details-component';
+import PokemonDetails from '@/components/pokemon-details/pokemon-details';
 
-const PokemonPage = () => <PokemonDetailsComponent />;
+const PokemonPage = () => <PokemonDetails />;
 
 export default PokemonPage;
 
