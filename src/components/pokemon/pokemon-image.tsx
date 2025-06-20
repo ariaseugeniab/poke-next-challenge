@@ -1,4 +1,4 @@
-import { cn } from '@/lib/utils';
+import { basePath, cn } from '@/lib/utils';
 import Image from 'next/image';
 
 const PokemonImage = ({
@@ -13,7 +13,7 @@ const PokemonImage = ({
     )}
   >
     <Image
-      src={imageUrl ?? '/utils/missingno.webp'}
+      src={imageUrl ?? `${basePath}/utils/missingno.webp`}
       alt={alt}
       className="object-contain p-1"
       fill

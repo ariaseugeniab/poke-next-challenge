@@ -1,3 +1,4 @@
+import { basePath } from '@/lib/utils';
 import type { PokemonType } from '@/types/pokemon';
 import Image from 'next/image';
 
@@ -6,7 +7,7 @@ const PokemonTypeImage = ({
   alt,
 }: { type: PokemonType; alt: string }) => (
   <Image
-    src={`/icons/${type}.png`}
+    src={`${basePath}/icons/${type}.png`}
     alt={alt}
     width={150}
     height={150}

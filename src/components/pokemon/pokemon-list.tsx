@@ -1,3 +1,4 @@
+import { basePath } from '@/lib/utils';
 import type { Pokemon } from '@/types/pokemon';
 import Image from 'next/image';
 import Loading from '../shared/loading';
@@ -39,7 +40,7 @@ const PokemonList = ({ pokemonDetails, isLoading }: PokemonListProps) => (
             aria-live="polite"
           >
             <Image
-              src="/utils/psyduck.png"
+              src={`${basePath}/utils/psyduck.png`}
               alt="Confused Psyduck indicating no Pokemon were found"
               width={200}
               height={100}

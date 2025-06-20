@@ -5,6 +5,7 @@ import Subtitle from '@/components/shared/subtitle';
 import Title from '@/components/shared/title';
 import { useUserContext } from '@/context/user-context';
 import { usePokemonDetailsList } from '@/hooks/use-pokemon';
+import { basePath } from '@/lib/utils';
 import Image from 'next/image';
 import Loading from '../shared/loading';
 
@@ -22,7 +23,7 @@ const FavoritesList = () => {
     return (
       <div className="flex flex-col items-center gap-2 w-full pt-10">
         <Image
-          src="/utils/magikarp.png"
+          src={`${basePath}/utils/magikarp.png`}
           alt="Magikarp"
           width={100}
           height={100}
