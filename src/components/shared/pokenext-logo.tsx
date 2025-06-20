@@ -1,4 +1,3 @@
-import { basePath } from '@/lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -10,7 +9,7 @@ export const PokenextLogo = () => (
   >
     <div className="flex items-center justify-center w-10 h-10">
       <Image
-        src={`${basePath}/pokenext-logo.png`}
+        src="/pokenext-logo.png"
         alt="PokeNext logo"
         width={80}
         height={80}
