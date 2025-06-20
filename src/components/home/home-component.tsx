@@ -6,7 +6,9 @@ import PagePaginator from '@/components/shared/pagination/page-paginator';
 import { usePokemonDetailsList, usePokemonList } from '@/hooks/use-pokemon';
 import { useQueryParams } from '@/hooks/use-query-params';
 import { QueryParamsSearchPokemonSchema } from '@/schemas/search';
-import { useState } from 'react';
+import type { Pokemon } from '@/types/pokemon';
+import { useEffect, useState } from 'react';
+import Loading from '../shared/loading';
 
 const ITEMS_PER_PAGE = 27;
 
@@ -14,13 +16,16 @@ const HomeComponent = () => {
   const { queryParams, setQueryParams } = useQueryParams(
     QueryParamsSearchPokemonSchema,
     {
-      debouncedValues: ['name', 'type'],
+      debouncedValues: ['name'],
     }
   );
 
   const [currentPage, setCurrentPage] = useState(
     queryParams.page ? Number.parseInt(queryParams.page) : 1
   );
+
+  const [searchResultsAnnouncement, setSearchResultsAnnouncement] =
+    useState('');
 
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
@@ -43,30 +48,97 @@ const HomeComponent = () => {
   const { data: pokemonDetails, isLoading: isLoadingDetails } =
     usePokemonDetailsList(pokemonNames);
 
-  // No need for client-side type filtering since we're now using the API
-  const filteredPokemonDetails = pokemonDetails ?? [];
+  const sortPokemonDetails = (pokemonList: Pokemon[], orderBy: string) => {
+    if (!orderBy) return pokemonList;
+
+    const [field, direction] = orderBy.split('-');
+    const isAscending = direction === 'asc';
+
+    return [...pokemonList].sort((a, b) => {
+      let comparison = 0;
+
+      if (field === 'id') {
+        comparison = a.id - b.id;
+      } else if (field === 'name') {
+        comparison = a.name.localeCompare(b.name);
+      }
+
+      return isAscending ? comparison : -comparison;
+    });
+  };
+
+  const filteredPokemonDetails = sortPokemonDetails(
+    pokemonDetails ?? [],
+    queryParams.orderBy ?? ''
+  );
 
   const totalPages = Math.ceil((pokemonList?.count ?? 0) / ITEMS_PER_PAGE);
 
-  console.log('queryParams', queryParams);
+  useEffect(() => {
+    if (!isLoadingDetails && !isLoadingList && filteredPokemonDetails) {
+      const count = filteredPokemonDetails.length;
+      const hasFilters = queryParams.name || queryParams.type;
+
+      if (hasFilters) {
+        setSearchResultsAnnouncement(
+          count === 0
+            ? 'No Pokémon found'
+            : `Found ${count} Pokémon${count === 1 ? '' : 's'}`
+        );
+      } else {
+        setSearchResultsAnnouncement(
+          `Showing ${count} Pokémon${count === 1 ? '' : 's'}`
+        );
+      }
+    }
+  }, [
+    filteredPokemonDetails,
+    isLoadingDetails,
+    isLoadingList,
+    queryParams.name,
+    queryParams.type,
+  ]);
 
   return (
-    <div className="space-y-4 w-11/12 mx-auto">
-      <SearchBar />
+    <div className="space-y-4 md:w-11/12 w-full mx-auto">
+      <h1 className="text-2xl font-bold md:text-left text-center">
+        Welcome to the Poke-Next
+      </h1>
 
-      <PokemonList
-        pokemonDetails={filteredPokemonDetails}
-        isLoading={isLoadingDetails || isLoadingList}
-      />
+      <SearchBar queryParams={queryParams} setQueryParams={setQueryParams} />
+
+      {(queryParams.name || queryParams.type) &&
+        filteredPokemonDetails.length > 0 && (
+          <p className="text-sm text-gray-500">{searchResultsAnnouncement}</p>
+        )}
+
+      <div className="sr-only" aria-live="polite" aria-atomic="true">
+        {searchResultsAnnouncement}
+      </div>
+
+      {(isLoadingDetails || isLoadingList) && (
+        <div className="sr-only" aria-live="polite">
+          <Loading />
+        </div>
+      )}
+
+      <main aria-label="Pokemon search results">
+        <PokemonList
+          pokemonDetails={filteredPokemonDetails}
+          isLoading={isLoadingDetails || isLoadingList}
+        />
+      </main>
 
       {totalPages > 1 && (
-        <PagePaginator
-          currentPage={currentPage}
-          totalPages={totalPages}
-          setCurrentPage={setCurrentPage}
-          queryParams={queryParams}
-          setQueryParams={setQueryParams}
-        />
+        <nav aria-label="Pokemon results pagination">
+          <PagePaginator
+            currentPage={currentPage}
+            totalPages={totalPages}
+            setCurrentPage={setCurrentPage}
+            queryParams={queryParams}
+            setQueryParams={setQueryParams}
+          />
+        </nav>
       )}
     </div>
   );

@@ -17,7 +17,7 @@ const RootLayout = ({
     <body className="antialiased">
       <QueryProvider>
         <UserContextProvider>
-          <div className="min-h-screen p-8 pb-20 gap-16 sm:pt-[55px] max-w-[1440px] mx-auto flex flex-col">
+          <div className="min-h-screen p-8 gap-16 sm:pt-[55px] max-w-[1440px] w-full mx-auto flex flex-col">
             <MainNavbar />
 
             {children}

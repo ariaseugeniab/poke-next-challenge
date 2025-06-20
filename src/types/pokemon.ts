@@ -29,44 +29,44 @@ export type Pokemon = {
 };
 
 export type PokemonType =
-  | 'water'
+  | 'bug'
+  | 'dark'
   | 'dragon'
   | 'electric'
   | 'fairy'
-  | 'ghost'
-  | 'fire'
-  | 'ice'
-  | 'grass'
-  | 'bug'
   | 'fighting'
-  | 'normal'
-  | 'dark'
-  | 'steel'
-  | 'rock'
-  | 'psychic'
+  | 'fire'
+  | 'flying'
+  | 'ghost'
+  | 'grass'
   | 'ground'
+  | 'ice'
+  | 'normal'
   | 'poison'
-  | 'flying';
+  | 'psychic'
+  | 'rock'
+  | 'steel'
+  | 'water';
 
 export const POKEMON_TYPES = [
-  'normal',
-  'fire',
-  'water',
-  'electric',
-  'grass',
-  'ice',
-  'fighting',
-  'poison',
-  'ground',
-  'flying',
-  'psychic',
   'bug',
-  'rock',
-  'ghost',
-  'dragon',
   'dark',
-  'steel',
+  'dragon',
+  'electric',
   'fairy',
+  'fighting',
+  'fire',
+  'flying',
+  'ghost',
+  'grass',
+  'ground',
+  'ice',
+  'normal',
+  'poison',
+  'psychic',
+  'rock',
+  'steel',
+  'water',
 ] as const;
 
 export type PokemonCharacteristic = {

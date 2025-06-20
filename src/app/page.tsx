@@ -1,7 +1,7 @@
 import HomeComponent from '@/components/home/home-component';
 
 const Page = async () => (
-  <div className="space-y-4 pt-10">
+  <div className="space-y-4 pt-10 w-full">
     <HomeComponent />
   </div>
 );

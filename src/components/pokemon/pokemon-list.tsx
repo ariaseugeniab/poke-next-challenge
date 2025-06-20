@@ -11,22 +11,35 @@ type PokemonListProps = {
 };
 
 const PokemonList = ({ pokemonDetails, isLoading }: PokemonListProps) => (
-  <>
+  <section aria-labelledby="pokemon-results-title">
     {isLoading ? (
-      <Loading />
+      <div aria-live="polite">
+        <Loading />
+      </div>
     ) : (
       <div>
         {pokemonDetails.length > 0 ? (
-          <div className="flex flex-wrap gap-4 items-center justify-center">
-            {pokemonDetails.map((pokemon) => (
-              <PokemonCard key={pokemon.id} pokemon={pokemon} />
-            ))}
-          </div>
+          <>
+            <h2 id="pokemon-results-title" className="sr-only">
+              Pokemon Results ({pokemonDetails.length} found)
+            </h2>
+            <div
+              className="flex flex-wrap gap-4 items-center justify-center"
+              aria-label={`Grid of ${pokemonDetails.length} Pokemon cards`}
+            >
+              {pokemonDetails.map((pokemon) => (
+                <PokemonCard key={pokemon.id} pokemon={pokemon} />
+              ))}
+            </div>
+          </>
         ) : (
-          <div className="flex flex-col items-center justify-center h-[50vh] w-full">
+          <div
+            className="flex flex-col items-center justify-center h-[50vh] w-full"
+            aria-live="polite"
+          >
             <Image
               src="/utils/psyduck.png"
-              alt="No Pokémon found"
+              alt="Confused Psyduck indicating no Pokemon were found"
               width={200}
               height={100}
             />
@@ -38,7 +51,7 @@ const PokemonList = ({ pokemonDetails, isLoading }: PokemonListProps) => (
         )}
       </div>
     )}
-  </>
+  </section>
 );
 
 export default PokemonList;
