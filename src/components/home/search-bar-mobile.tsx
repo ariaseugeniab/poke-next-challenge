@@ -22,9 +22,14 @@ import Title from '../shared/title';
 interface SearchBarMobileProps {
   onSubmit: (data: QueryParamsSearchPokemonForm) => void;
   queryParams: QueryParamsSearchPokemonForm;
+  onClear?: () => void;
 }
 
-const SearchBarMobile = ({ onSubmit, queryParams }: SearchBarMobileProps) => {
+const SearchBarMobile = ({
+  onSubmit,
+  queryParams,
+  onClear,
+}: SearchBarMobileProps) => {
   const selectClassName =
     'h-8 focus-visible:ring-2 focus-visible:ring-gray-500 focus-visible:ring-offset-0 w-full md:w-auto';
 
@@ -45,28 +50,22 @@ const SearchBarMobile = ({ onSubmit, queryParams }: SearchBarMobileProps) => {
       page: '1',
       orderBy: POKEMON_ORDER_OPTIONS[0].value,
     });
+    onClear?.();
   };
 
-  const handleSubmit = (
-    data: QueryParamsSearchPokemonForm,
-    event?: React.BaseSyntheticEvent
-  ) => {
-    event?.preventDefault();
+  const handleSubmit = (data: QueryParamsSearchPokemonForm) => {
     onSubmit(data);
   };
 
   useEffect(() => {
-    if (queryParams?.name) {
-      form.setValue('name', queryParams.name);
-    }
-
-    if (queryParams?.type) {
-      form.setValue('type', queryParams.type);
-    }
-
-    if (queryParams?.orderBy) {
-      form.setValue('orderBy', queryParams.orderBy);
-    }
+    // Update form values when queryParams change
+    form.setValue('name', queryParams?.name || '');
+    form.setValue('type', queryParams?.type || '');
+    form.setValue('page', queryParams?.page || '1');
+    form.setValue(
+      'orderBy',
+      queryParams?.orderBy || POKEMON_ORDER_OPTIONS[0].value
+    );
   }, [queryParams, form]);
 
   return (
@@ -104,6 +103,7 @@ const SearchBarMobile = ({ onSubmit, queryParams }: SearchBarMobileProps) => {
                 placeholder="Search by name"
                 onClear={() => {
                   form.setValue('name', '');
+                  onClear?.();
                 }}
                 isClearable
                 className="w-full md:w-auto"

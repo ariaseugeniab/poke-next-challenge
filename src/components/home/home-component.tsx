@@ -126,6 +126,7 @@ const HomeComponent = () => {
         <SearchBarMobile
           onSubmit={handleMobileSearch}
           queryParams={queryParams}
+          onClear={() => setQueryParams({ name: '', type: '', page: '1' })}
         />
       ) : (
         <SearchBar queryParams={queryParams} setQueryParams={setQueryParams} />
