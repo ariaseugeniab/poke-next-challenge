@@ -1,5 +1,3 @@
-'use client';
-
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { z } from 'zod';
@@ -8,25 +6,6 @@ interface UseQueryParamsOptions<T extends z.ZodType> {
   debouncedValues?: Array<keyof z.infer<T>>;
 }
 
-/**
- * This hook manages query parameters in the URL, allowing for both
- * immediate updates and debounced updates where the URL update is delayed.
- *
- * @example
- *
- * const schema = z.object({
- *   search: z.string().optional(),
- *   page: z.number().optional(),
- * });
- *
- * const { queryParams, setQueryParams } = useQueryParams(schema, {
- *   debouncedValues: ['search'],
- * });
- *
- * setQueryParams({ page: 2 });
- * setQueryParams({ search: 'search text' });
- *
- */
 export const useQueryParams = <T extends z.ZodType>(
   schema: T,
   options: UseQueryParamsOptions<T> = {}
@@ -70,10 +49,8 @@ export const useQueryParams = <T extends z.ZodType>(
         ...updatedParams,
       });
 
-      // Create a new URLSearchParams instance based on current parameters
       const newSearchParams = new URLSearchParams(searchParams.toString());
 
-      // Update the query parameters in the URL
       for (const key in validatedParams) {
         const value = validatedParams[key];
 
@@ -86,6 +63,8 @@ export const useQueryParams = <T extends z.ZodType>(
 
       router.replace(`${pathname}?${newSearchParams.toString()}`, {
         scroll: false,
+        // @ts-expect-error Property 'shallow' does not exist on type 'NavigateOptions'.
+        shallow: true,
       });
 
       latestParams.current = validatedParams;
@@ -100,7 +79,6 @@ export const useQueryParams = <T extends z.ZodType>(
       const debouncedParams: Partial<QueryParams> = {};
       const immediateUpdateParams: Partial<QueryParams> = {};
 
-      // Separate immediate and debounced params
       for (const key in newParams) {
         if (debouncedValues.includes(key)) {
           debouncedParams[key] = newParams[key];
@@ -109,12 +87,10 @@ export const useQueryParams = <T extends z.ZodType>(
         }
       }
 
-      // Immediately update non-debounced params
       if (Object.keys(immediateUpdateParams).length > 0) {
         updateQueryParams(immediateUpdateParams);
       }
 
-      // Handle debounced params
       for (const key in debouncedParams) {
         const stringKey = z.string().parse(key);
 
