@@ -6,6 +6,7 @@ import {
 import { POKEMON_TYPES } from '@/types/pokemon';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SearchIcon } from 'lucide-react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import PokemonTypeLabel from '../pokemon/pokemon-type-label';
 import { Button } from '../shared/button';
@@ -18,9 +19,10 @@ import Title from '../shared/title';
 
 interface SearchBarMobileProps {
   onSubmit: (data: QueryParamsSearchPokemonForm) => void;
+  queryParams: QueryParamsSearchPokemonForm;
 }
 
-const SearchBarMobile = ({ onSubmit }: SearchBarMobileProps) => {
+const SearchBarMobile = ({ onSubmit, queryParams }: SearchBarMobileProps) => {
   const selectClassName =
     'h-8 focus-visible:ring-2 focus-visible:ring-gray-500 focus-visible:ring-offset-0 w-full md:w-auto';
 
@@ -46,6 +48,20 @@ const SearchBarMobile = ({ onSubmit }: SearchBarMobileProps) => {
   const handleSubmit = (data: QueryParamsSearchPokemonForm) => {
     onSubmit(data);
   };
+
+  useEffect(() => {
+    if (queryParams.name) {
+      form.setValue('name', queryParams.name);
+    }
+
+    if (queryParams.type) {
+      form.setValue('type', queryParams.type);
+    }
+
+    if (queryParams.orderBy) {
+      form.setValue('orderBy', queryParams.orderBy);
+    }
+  }, [queryParams, form]);
 
   return (
     <section
