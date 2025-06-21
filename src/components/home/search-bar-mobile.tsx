@@ -58,14 +58,23 @@ const SearchBarMobile = ({
   };
 
   useEffect(() => {
-    // Update form values when queryParams change
-    form.setValue('name', queryParams?.name || '');
-    form.setValue('type', queryParams?.type || '');
-    form.setValue('page', queryParams?.page || '1');
-    form.setValue(
-      'orderBy',
-      queryParams?.orderBy || POKEMON_ORDER_OPTIONS[0].value
+    const newValues = {
+      name: queryParams?.name || '',
+      type: queryParams?.type || '',
+      page: queryParams?.page || '1',
+      orderBy: queryParams?.orderBy || POKEMON_ORDER_OPTIONS[0].value,
+    };
+
+    const currentValues = form.getValues();
+    const hasChanged = Object.keys(newValues).some(
+      (key) =>
+        newValues[key as keyof typeof newValues] !==
+        currentValues[key as keyof typeof currentValues]
     );
+
+    if (hasChanged) {
+      form.reset(newValues);
+    }
   }, [queryParams, form]);
 
   return (
@@ -103,7 +112,6 @@ const SearchBarMobile = ({
                 placeholder="Search by name"
                 onClear={() => {
                   form.setValue('name', '');
-                  onClear?.();
                 }}
                 isClearable
                 className="w-full md:w-auto"
