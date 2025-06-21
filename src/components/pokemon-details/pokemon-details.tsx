@@ -30,6 +30,8 @@ const PokemonDetails = () => {
   const { data: damageRelations, isLoading: isLoadingDamageRelations } =
     useDamageRelations(pokemonId as string);
 
+  console.log(damageRelations);
+
   if (
     isLoading ||
     !pokemon ||
@@ -90,8 +92,7 @@ const PokemonDetails = () => {
               Description: {englishDescription || 'No description available'}
             </p>
 
-            {(damageRelations?.double_damage_from ||
-              damageRelations?.double_damage_to) && (
+            {damageRelations && (
               <Damages damageRelationsDamages={damageRelations} />
             )}
           </div>
