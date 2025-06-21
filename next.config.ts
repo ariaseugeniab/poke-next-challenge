@@ -4,6 +4,11 @@ const nextConfig: NextConfig = {
   output: 'export',
   trailingSlash: true,
   basePath: '/poke-next-challenge',
+  distDir: 'out',
+  experimental: {
+    // Disable PPR for static export
+    ppr: false,
+  },
   images: {
     unoptimized: true,
     remotePatterns: [

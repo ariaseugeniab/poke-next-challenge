@@ -95,6 +95,7 @@ const SearchBarMobile = ({
           className="flex md:flex-row flex-col md:items-center gap-2"
           aria-label="Pokemon search form"
           onSubmit={form.handleSubmit(handleSubmit)}
+          noValidate
         >
           <fieldset className="contents">
             <legend className="sr-only">Search and filter Pokémon</legend>
