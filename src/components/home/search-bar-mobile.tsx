@@ -1,3 +1,5 @@
+'use client';
+
 import {
   POKEMON_ORDER_OPTIONS,
   type QueryParamsSearchPokemonForm,
@@ -50,15 +52,15 @@ const SearchBarMobile = ({ onSubmit, queryParams }: SearchBarMobileProps) => {
   };
 
   useEffect(() => {
-    if (queryParams.name) {
+    if (queryParams?.name) {
       form.setValue('name', queryParams.name);
     }
 
-    if (queryParams.type) {
+    if (queryParams?.type) {
       form.setValue('type', queryParams.type);
     }
 
-    if (queryParams.orderBy) {
+    if (queryParams?.orderBy) {
       form.setValue('orderBy', queryParams.orderBy);
     }
   }, [queryParams, form]);

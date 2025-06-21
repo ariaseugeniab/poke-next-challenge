@@ -123,7 +123,10 @@ const HomeComponent = () => {
       </h1>
 
       {isMobile ? (
-        <SearchBarMobile onSubmit={handleMobileSearch} />
+        <SearchBarMobile
+          onSubmit={handleMobileSearch}
+          queryParams={queryParams}
+        />
       ) : (
         <SearchBar queryParams={queryParams} setQueryParams={setQueryParams} />
       )}
