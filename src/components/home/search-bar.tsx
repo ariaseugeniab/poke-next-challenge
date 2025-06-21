@@ -7,6 +7,7 @@ import {
 import { POKEMON_TYPES } from '@/types/pokemon';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SearchIcon } from 'lucide-react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import PokemonTypeLabel from '../pokemon/pokemon-type-label';
 import { Button } from '../shared/button';
@@ -59,6 +60,27 @@ const SearchBar = ({
       orderBy: newValue,
       page: '1',
     });
+
+  // Sync form with query parameters when they change
+  useEffect(() => {
+    const newValues = {
+      name: queryParams.name ?? '',
+      type: queryParams.type ?? '',
+      page: queryParams.page ?? '1',
+      orderBy: queryParams.orderBy ?? POKEMON_ORDER_OPTIONS[0].value,
+    };
+
+    const currentValues = form.getValues();
+    const hasChanged = Object.keys(newValues).some(
+      (key) =>
+        newValues[key as keyof typeof newValues] !==
+        currentValues[key as keyof typeof currentValues]
+    );
+
+    if (hasChanged) {
+      form.reset(newValues);
+    }
+  }, [queryParams, form]);
 
   return (
     <section
