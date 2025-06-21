@@ -1,3 +1,5 @@
+'use client';
+
 import { cn } from '@/lib/utils';
 import type { Pokemon, PokemonType } from '@/types/pokemon';
 import Link from 'next/link';

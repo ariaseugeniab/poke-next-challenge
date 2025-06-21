@@ -1,3 +1,5 @@
+'use client';
+
 import type { PokemonType } from '@/types/pokemon';
 
 const PokemonColorBackground = ({

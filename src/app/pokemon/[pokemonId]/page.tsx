@@ -5,10 +5,10 @@ const PokemonPage = () => <PokemonDetails />;
 export default PokemonPage;
 
 export async function generateStaticParams() {
-  const response = await fetch('https://pokeapi.co/api/v2/pokemon');
-  const data = await response.json();
+  // Count: 1302 from https://pokeapi.co/api/v2/pokemon
+  const count = 1302;
 
-  const pokemonIds = Array.from({ length: data.count }, (_, i) => ({
+  const pokemonIds = Array.from({ length: count }, (_, i) => ({
     pokemonId: (i + 1).toString(),
   }));
 

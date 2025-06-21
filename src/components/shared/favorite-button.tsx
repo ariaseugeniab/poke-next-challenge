@@ -1,3 +1,5 @@
+'use client';
+
 import { useUserContext } from '@/context/user-context';
 import { cn } from '@/lib/utils';
 import { Heart } from 'lucide-react';

@@ -1,3 +1,5 @@
+'use client';
+
 import type { QueryParamsSearchPokemonForm } from '@/schemas/search';
 import { useCallback } from 'react';
 import {

@@ -1,3 +1,5 @@
+'use client';
+
 import type { useQueryParams } from '@/hooks/use-query-params';
 import {
   POKEMON_ORDER_OPTIONS,

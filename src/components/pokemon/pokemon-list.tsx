@@ -1,3 +1,5 @@
+'use client';
+
 import { basePath } from '@/lib/utils';
 import type { Pokemon } from '@/types/pokemon';
 import Image from 'next/image';

@@ -1,3 +1,5 @@
+'use client';
+
 import PokemonTypeLabel from '@/components/pokemon/pokemon-type-label';
 import type { PokemonType } from '@/types/pokemon';
 import type { DamageRelations } from '@/types/pokemon';

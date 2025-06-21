@@ -1,3 +1,5 @@
+'use client';
+
 import { basePath } from '@/lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';

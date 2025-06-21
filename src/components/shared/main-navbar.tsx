@@ -1,3 +1,5 @@
+'use client';
+
 import { Heart } from 'lucide-react';
 import Link from 'next/link';
 import { PokenextLogo } from './pokenext-logo';
