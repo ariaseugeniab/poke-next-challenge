@@ -3,16 +3,23 @@
 import SearchBar from '@/components/home/search-bar';
 import PokemonList from '@/components/pokemon/pokemon-list';
 import PagePaginator from '@/components/shared/pagination/page-paginator';
+import useIsMobile from '@/hooks/use-is-mobile';
 import { usePokemonDetailsList, usePokemonList } from '@/hooks/use-pokemon';
 import { useQueryParams } from '@/hooks/use-query-params';
-import { QueryParamsSearchPokemonSchema } from '@/schemas/search';
+import {
+  type QueryParamsSearchPokemonForm,
+  QueryParamsSearchPokemonSchema,
+} from '@/schemas/search';
 import type { Pokemon } from '@/types/pokemon';
 import { useEffect, useState } from 'react';
 import Loading from '../shared/loading';
+import SearchBarMobile from './search-bar-mobile';
 
 const ITEMS_PER_PAGE = 20;
 
 const HomeComponent = () => {
+  const isMobile = useIsMobile();
+
   const { queryParams, setQueryParams } = useQueryParams(
     QueryParamsSearchPokemonSchema,
     {
@@ -105,13 +112,21 @@ const HomeComponent = () => {
     queryParams.type,
   ]);
 
+  const handleMobileSearch = (data: QueryParamsSearchPokemonForm) => {
+    setQueryParams(data);
+  };
+
   return (
     <div className="space-y-4 md:w-11/12 w-full mx-auto">
       <h1 className="text-2xl font-bold md:text-left text-center">
         Welcome to the Poke-Next
       </h1>
 
-      <SearchBar queryParams={queryParams} setQueryParams={setQueryParams} />
+      {isMobile ? (
+        <SearchBarMobile onSubmit={handleMobileSearch} />
+      ) : (
+        <SearchBar queryParams={queryParams} setQueryParams={setQueryParams} />
+      )}
 
       {(queryParams.name || queryParams.type) &&
         filteredPokemonDetails.length > 0 && (

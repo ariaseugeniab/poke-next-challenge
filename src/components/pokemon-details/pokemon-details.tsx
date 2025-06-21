@@ -30,8 +30,6 @@ const PokemonDetails = () => {
   const { data: damageRelations, isLoading: isLoadingDamageRelations } =
     useDamageRelations(pokemonId as string);
 
-  console.log(damageRelations);
-
   if (
     isLoading ||
     !pokemon ||
