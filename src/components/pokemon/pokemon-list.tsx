@@ -36,7 +36,7 @@ const PokemonList = ({ pokemonDetails, isLoading }: PokemonListProps) => (
           </>
         ) : (
           <div
-            className="flex flex-col items-center justify-center h-[50vh] w-full"
+            className="flex flex-col items-center justify-center md:h-[50vh] h-[30vh] w-full mb-10"
             aria-live="polite"
           >
             <Image

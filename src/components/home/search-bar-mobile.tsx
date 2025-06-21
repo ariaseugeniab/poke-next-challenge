@@ -47,7 +47,11 @@ const SearchBarMobile = ({ onSubmit, queryParams }: SearchBarMobileProps) => {
     });
   };
 
-  const handleSubmit = (data: QueryParamsSearchPokemonForm) => {
+  const handleSubmit = (
+    data: QueryParamsSearchPokemonForm,
+    event?: React.BaseSyntheticEvent
+  ) => {
+    event?.preventDefault();
     onSubmit(data);
   };
 
@@ -137,7 +141,11 @@ const SearchBarMobile = ({ onSubmit, queryParams }: SearchBarMobileProps) => {
             </SelectField>
           </fieldset>
 
-          <Button type="submit" className="w-full md:w-auto text-white">
+          <Button
+            type="submit"
+            className="w-full md:w-auto text-white"
+            aria-label="Search for Pokémon"
+          >
             Search
           </Button>
 

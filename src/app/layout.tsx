@@ -17,7 +17,7 @@ const RootLayout = ({
     <body>
       <QueryProvider>
         <UserContextProvider>
-          <div className="min-h-screen p-8 gap-16 sm:pt-[55px] max-w-[1440px] w-full mx-auto flex flex-col">
+          <div className="min-h-screen p-8 gap-16 sm:pt-[55px] max-w-[1440px] w-full mx-auto flex flex-col pb-10">
             <MainNavbar />
 
             {children}
