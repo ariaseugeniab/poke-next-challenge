@@ -3,7 +3,7 @@ import type { NextConfig } from 'next';
 const nextConfig: NextConfig = {
   output: 'standalone',
   trailingSlash: true,
-  basePath: '/poke-next-challenge',
+  basePath: '/',
   reactStrictMode: false,
   images: {
     unoptimized: true,
