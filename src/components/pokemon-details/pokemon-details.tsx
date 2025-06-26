@@ -3,6 +3,7 @@
 import Damages from '@/components/pokemon/damages';
 import PokemonColorBackground from '@/components/pokemon/pokemon-color-background';
 import PokemonImage from '@/components/pokemon/pokemon-image';
+import PokemonStats from '@/components/pokemon/pokemon-stats';
 import PokemonTypeImage from '@/components/pokemon/pokemon-type-image';
 import PokemonTypeLabel from '@/components/pokemon/pokemon-type-label';
 import BackButton from '@/components/shared/back-button';
@@ -89,6 +90,8 @@ const PokemonDetails = () => {
             <p className="mt-2 text-gray-700">
               Description: {englishDescription || 'No description available'}
             </p>
+
+            <PokemonStats pokemon={pokemon} />
 
             {damageRelations && (
               <Damages damageRelationsDamages={damageRelations} />

@@ -21,6 +21,14 @@ export type Pokemon = {
       };
     };
   };
+  weight: number;
+  height: number;
+  abilities: {
+    ability: {
+      name: string;
+      url: string;
+    };
+  }[];
   types: {
     type: {
       name: string;
