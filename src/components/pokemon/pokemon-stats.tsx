@@ -7,18 +7,18 @@ const PokemonStats = ({ pokemon }: { pokemon: Pokemon }) => (
 
     <div className="flex gap-5 items-center my-2">
       <p className="flex items-center gap-2">
-        <Weight />
+        <Weight className="text-gray-500" />
         Weight: {pokemon?.weight} kg.
       </p>
 
       <p className="flex items-center gap-2">
-        <Ruler />
+        <Ruler className="text-gray-500" />
         Height: {pokemon?.height} m.
       </p>
     </div>
 
     <div className="flex gap-2 items-center">
-      <BicepsFlexed />
+      <BicepsFlexed className="text-gray-500" />
       <p>Abilities:</p>
 
       <div className="flex flex-wrap items-center gap-2 my-2 w-full">
