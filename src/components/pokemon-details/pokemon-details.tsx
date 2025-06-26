@@ -7,6 +7,7 @@ import PokemonStats from '@/components/pokemon/pokemon-stats';
 import PokemonTypeImage from '@/components/pokemon/pokemon-type-image';
 import PokemonTypeLabel from '@/components/pokemon/pokemon-type-label';
 import BackButton from '@/components/shared/back-button';
+import ErrorDisplay from '@/components/shared/error-display';
 import FavoriteButton from '@/components/shared/favorite-button';
 import Loading from '@/components/shared/loading';
 import Subtitle from '@/components/shared/subtitle';
@@ -21,7 +22,12 @@ import { useParams } from 'next/navigation';
 
 const PokemonDetails = () => {
   const { pokemonId } = useParams();
-  const { data: pokemon, isLoading } = usePokemonDetails(pokemonId as string);
+
+  const {
+    data: pokemon,
+    isLoading,
+    error: errorPokemonDetails,
+  } = usePokemonDetails(pokemonId as string);
 
   const {
     data: pokemonCharacteristics,
@@ -31,13 +37,19 @@ const PokemonDetails = () => {
   const { data: damageRelations, isLoading: isLoadingDamageRelations } =
     useDamageRelations(pokemonId as string);
 
+  console.log('errorPokemonDetails', errorPokemonDetails);
+
+  if (errorPokemonDetails) return <ErrorDisplay error={errorPokemonDetails} />;
+
+  // Then check for loading states
   if (
     isLoading ||
     !pokemon ||
     isLoadingPokemonCharacteristics ||
     isLoadingDamageRelations
-  )
+  ) {
     return <Loading />;
+  }
 
   const englishDescription = pokemonCharacteristics?.descriptions.find(
     (desc) => desc.language.name === 'en'

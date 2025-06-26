@@ -23,34 +23,26 @@ export async function getPokemonList(
   name?: string
 ): Promise<PokemonListResponse> {
   if (name) {
-    try {
-      const pokemon = await getPokemonDetails(name);
-      return {
-        count: 1,
-        next: null,
-        previous: null,
-        results: [
-          {
-            name: pokemon.name,
-            url: `${POKEAPI_BASE_URL}/pokemon/${pokemon.id}`,
-          },
-        ],
-      };
-    } catch {
-      return {
-        count: 0,
-        next: null,
-        previous: null,
-        results: [],
-      };
-    }
+    const pokemon = await getPokemonDetails(name);
+    return {
+      count: 1,
+      next: null,
+      previous: null,
+      results: [
+        {
+          name: pokemon.name,
+          url: `${POKEAPI_BASE_URL}/pokemon/${pokemon.id}`,
+        },
+      ],
+    };
   }
 
   const response = await fetch(
     `${POKEAPI_BASE_URL}/pokemon?limit=${limit}&offset=${offset}`
   );
+
   if (!response.ok) {
-    throw new Error('Failed to fetch Pokemon list');
+    throw new Error('Unable to load Pokemon list. Please try again later.');
   }
   return response.json();
 }
@@ -60,7 +52,9 @@ export async function getPokemonByType(
 ): Promise<PokemonListResponse> {
   const response = await fetch(`${POKEAPI_BASE_URL}/type/${type}`);
   if (!response.ok) {
-    throw new Error(`Failed to fetch Pokemon by type ${type}`);
+    throw new Error(
+      `Pokemon type "${type}" not found. Please check the type name.`
+    );
   }
 
   const data: PokemonTypeResponse = await response.json();
@@ -80,7 +74,7 @@ export async function getPokemonByType(
 export async function getPokemonDetails(id: string): Promise<Pokemon> {
   const response = await fetch(`${POKEAPI_BASE_URL}/pokemon/${id}`);
   if (!response.ok) {
-    throw new Error(`Failed to fetch Pokemon details for ${id}`);
+    throw new Error('Unable to load Pokemon details. Please try again later.');
   }
   return response.json();
 }
@@ -90,7 +84,9 @@ export async function getPokemonCharacteristics(
 ): Promise<PokemonCharacteristic> {
   const response = await fetch(`${POKEAPI_BASE_URL}/characteristic/${id}`);
   if (!response.ok) {
-    throw new Error(`Failed to fetch Pokemon characteristics for ${id}`);
+    throw new Error(
+      'Unable to load Pokemon characteristics. Please try again later.'
+    );
   }
   return response.json();
 }
@@ -98,7 +94,9 @@ export async function getPokemonCharacteristics(
 export async function getPokemonEvolutions(id: string): Promise<Pokemon> {
   const response = await fetch(`${POKEAPI_BASE_URL}/evolution-chain/${id}`);
   if (!response.ok) {
-    throw new Error(`Failed to fetch Pokemon evolution for ${id}`);
+    throw new Error(
+      'Unable to load Pokemon evolution data. Please try again later.'
+    );
   }
   return response.json();
 }
@@ -109,7 +107,7 @@ export async function getDamageRelations(
   const response = await fetch(`${POKEAPI_BASE_URL}/type/${id}`);
 
   if (!response.ok) {
-    throw new Error(`Failed to fetch Damage Relations Damages for ${id}`);
+    throw new Error('Unable to load damage relations. Please try again later.');
   }
   return response.json();
 }

@@ -27,6 +27,7 @@ export function usePokemonList(
       return getPokemonList(limit, offset, name);
     },
     enabled: !!name || !!type || !!limit || !!offset,
+    retry: false,
   });
 }
 
