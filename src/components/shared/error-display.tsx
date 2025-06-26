@@ -16,7 +16,7 @@ const ErrorDisplay = ({ error, className = '' }: ErrorDisplayProps) => {
   return (
     <div
       className={cn(
-        'flex flex-col items-center justify-center p-6 text-center',
+        'flex flex-col items-center justify-center p-6 text-center mt-10',
         className
       )}
     >
