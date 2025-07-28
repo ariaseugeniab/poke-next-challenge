@@ -32,6 +32,21 @@
 :root {
   --background: #d7d7d7;
   --foreground: #020202;
+  
+  /* Button component variables */
+  --primary: #e98c49;
+  --primary-foreground: #ffffff;
+  --secondary: #045187;
+  --secondary-foreground: #ffffff;
+  --accent: #f3f4f6;
+  --accent-foreground: #020202;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --ring: #e98c49;
+  --border: #d1d5db;
+  --input: #f9fafb;
+  --muted: #f3f4f6;
+  --muted-foreground: #6b7280;
 }
 
 @theme inline {
