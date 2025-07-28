@@ -16,7 +16,17 @@ const config: StorybookConfig = {
     "options": {}
   },
   "staticDirs": [
-    "..\\public"
-  ]
+    "../public",
+    "../src/stories/assets"
+  ],
+  "viteFinal": async (config) => {
+    if (config.resolve) {
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        '@': '/src',
+      };
+    }
+    return config;
+  },
 };
 export default config;

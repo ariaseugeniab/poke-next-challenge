@@ -1,21 +1,6 @@
 import { Meta } from "@storybook/addon-docs/blocks";
 import Image from "next/image";
 
-import Github from "./assets/github.svg";
-import Discord from "./assets/discord.svg";
-import Youtube from "./assets/youtube.svg";
-import Tutorials from "./assets/tutorials.svg";
-import Styling from "./assets/styling.png";
-import Context from "./assets/context.png";
-import Assets from "./assets/assets.png";
-import Docs from "./assets/docs.png";
-import Share from "./assets/share.png";
-import FigmaPlugin from "./assets/figma-plugin.png";
-import Testing from "./assets/testing.png";
-import Accessibility from "./assets/accessibility.png";
-import Theming from "./assets/theming.png";
-import AddonLibrary from "./assets/addon-library.png";
-
 export const RightArrow = () => <svg 
     viewBox="0 0 14 14" 
     width="8px" 
@@ -43,7 +28,7 @@ export const RightArrow = () => <svg
   <div className="sb-section">
     <div className="sb-section-item">
       <Image
-        src={Styling}
+        src="/styling.png"
         alt="A wall of logos representing different styling technologies"
         width={0}
         height={0}
@@ -61,7 +46,7 @@ export const RightArrow = () => <svg
         width={0}
         height={0}
         style={{ width: '100%', height: 'auto' }}
-        src={Context}
+        src="/context.png"
         alt="An abstraction representing the composition of data for a component"
       />
       <h4 className="sb-section-item-heading">Provide context and mocking</h4>
@@ -76,7 +61,7 @@ export const RightArrow = () => <svg
         width={0}
         height={0}
         style={{ width: '100%', height: 'auto' }} 
-        src={Assets} 
+        src="/assets.png" 
         alt="A representation of typography and image assets" 
       />
       <div>
@@ -106,7 +91,7 @@ export const RightArrow = () => <svg
           width={0}
           height={0}
           style={{ width: '100%', height: 'auto' }} 
-          src={Docs} 
+          src="/docs.png" 
           alt="A screenshot showing the autodocs tag being set, pointing a docs page being generated" 
         />
         <h4 className="sb-section-item-heading">Autodocs</h4>
@@ -122,7 +107,7 @@ export const RightArrow = () => <svg
           width={0}
           height={0}
           style={{ width: '100%', height: 'auto' }} 
-          src={Share} 
+          src="/share.png" 
           alt="A browser window showing a Storybook being published to a chromatic.com URL" 
         />
         <h4 className="sb-section-item-heading">Publish to Chromatic</h4>
@@ -137,7 +122,7 @@ export const RightArrow = () => <svg
           width={0}
           height={0}
           style={{ width: '100%', height: 'auto' }} 
-          src={FigmaPlugin} 
+          src="/figma-plugin.png" 
           alt="Windows showing the Storybook plugin in Figma" 
         />
         <h4 className="sb-section-item-heading">Figma Plugin</h4>
@@ -153,7 +138,7 @@ export const RightArrow = () => <svg
           width={0}
           height={0}
           style={{ width: '100%', height: 'auto' }} 
-          src={Testing} 
+          src="/testing.png" 
           alt="Screenshot of tests passing and failing" 
         />
         <h4 className="sb-section-item-heading">Testing</h4>
@@ -169,7 +154,7 @@ export const RightArrow = () => <svg
           width={0}
           height={0}
           style={{ width: '100%', height: 'auto' }} 
-          src={Accessibility} 
+          src="/accessibility.png" 
           alt="Screenshot of accessibility tests passing and failing" 
         />
         <h4 className="sb-section-item-heading">Accessibility</h4>
@@ -184,7 +169,7 @@ export const RightArrow = () => <svg
           width={0}
           height={0}
           style={{ width: '100%', height: 'auto' }} 
-          src={Theming} 
+          src="/theming.png" 
           alt="Screenshot of Storybook in light and dark mode" 
         />
         <h4 className="sb-section-item-heading">Theming</h4>
@@ -210,7 +195,7 @@ export const RightArrow = () => <svg
     <Image 
       width={650}
       height={347}
-      src={AddonLibrary} 
+      src="/addon-library.png" 
       alt="Integrate your tools with Storybook to connect workflows." 
     />
   </div>
@@ -222,7 +207,7 @@ export const RightArrow = () => <svg
         width={32}
         height={32}
         layout="fixed"
-        src={Github} 
+        src="/github.svg" 
         alt="Github logo" 
         className="sb-explore-image"
       />
@@ -238,7 +223,7 @@ export const RightArrow = () => <svg
         width={33}
         height={32}
         layout="fixed"
-        src={Discord} 
+        src="/discord.svg" 
         alt="Discord logo" 
         className="sb-explore-image"
       />
@@ -256,7 +241,7 @@ export const RightArrow = () => <svg
         width={32}
         height={32}
         layout="fixed"
-        src={Youtube} 
+        src="/youtube.svg" 
         alt="Youtube logo" 
         className="sb-explore-image"
       />
@@ -274,7 +259,7 @@ export const RightArrow = () => <svg
         width={33}
         height={32}
         layout="fixed"
-        src={Tutorials} 
+        src="/tutorials.svg" 
         alt="A book" 
         className="sb-explore-image"
       />
