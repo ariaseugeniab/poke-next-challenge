@@ -10,9 +10,9 @@
     "format": "biome format --write .",
     "lint:biome": "biome lint .",
     "check": "biome check --apply .",
-    "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public",
-    "serve-storybook": "serve storybook-static"
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "serve-storybook": "storybook dev -p 6006"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.1.1",

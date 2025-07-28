@@ -1,3 +1,5 @@
+"use client";
+
 import Subtitle from '@/components/shared/subtitle';
 import Title from '@/components/shared/title';
 import { basePath } from '@/lib/utils';
