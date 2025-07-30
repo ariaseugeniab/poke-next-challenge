@@ -159,4 +159,4 @@ export const CustomStyling: Story = {
     type: 'fire',
     className: 'text-lg font-bold',
   },
-}; 
+};

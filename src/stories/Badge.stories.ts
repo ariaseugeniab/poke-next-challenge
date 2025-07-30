@@ -219,4 +219,4 @@ export const CustomStyling: Story = {
     className: 'text-lg font-bold',
     children: 'Custom Badge',
   },
-}; 
+};

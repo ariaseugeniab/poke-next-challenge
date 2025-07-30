@@ -2,11 +2,11 @@ import '@testing-library/jest-dom';
 
 // Mock IntersectionObserver
 global.IntersectionObserver = class IntersectionObserver {
-  disconnect() { }
+  disconnect() {}
 
-  observe() { }
+  observe() {}
 
-  unobserve() { }
+  unobserve() {}
 };
 
 // Mock matchMedia
@@ -30,9 +30,9 @@ global.ResizeObserver = class ResizeObserver {
     this.callback = callback;
   }
 
-  observe() { }
-  unobserve() { }
-  disconnect() { }
+  observe() {}
+  unobserve() {}
+  disconnect() {}
 };
 
 // Mock fetch

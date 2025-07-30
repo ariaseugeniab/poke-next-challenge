@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import Subtitle from '@/components/shared/subtitle';
 import Title from '@/components/shared/title';
