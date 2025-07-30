@@ -10,6 +10,7 @@ const meta = {
   component: Button,
   parameters: {
     className: 'w-full',
+    layout: 'centered',
   },
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ['autodocs'],
@@ -30,9 +31,41 @@ export const Primary: Story = {
   },
 };
 
+export const Destructive: Story = {
+  args: {
+    variant: 'destructive',
+    size: 'default',
+    children: 'Button',
+  },
+};
+
+export const Outline: Story = {
+  args: {
+    variant: 'outline',
+    size: 'default',
+    children: 'Button',
+  },
+};
+
 export const Secondary: Story = {
   args: {
     variant: 'secondary',
+    size: 'default',
+    children: 'Button',
+  },
+};
+
+export const Ghost: Story = {
+  args: {
+    variant: 'ghost',
+    size: 'default',
+    children: 'Button',
+  },
+};
+
+export const Link: Story = {
+  args: {
+    variant: 'link',
     size: 'default',
     children: 'Button',
   },
